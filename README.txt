@@ -1,3 +1,5 @@
+Anna Arroyo and Nikki Thanapaisal
+
 Gitlab set up:
 	GIT_SSL_NO_VERIFY=true git clone http://easel3.cs.utsarr.net/iaf873/cs4783-project-spring2021.git
 
