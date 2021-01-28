@@ -1,8 +1,8 @@
 #### Configuration
 <p>
-server.js expects a .env that contains:
+server.js expects a .env file. create a file called ".env" that contains:
 <br />
-LISTEN_PORT={desired port number}
+LISTEN_PORT=8080
 </p>
 
 #### Building
