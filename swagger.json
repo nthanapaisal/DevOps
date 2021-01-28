@@ -1,0 +1,44 @@
+{
+	"info": {
+		"description":"CS 4783 Assignment"
+		,"title":"CS 4783","version":"1.0.0" 
+	}
+	,"host":"localhost:12250"
+	, "configUrl":"localhost:12250/swagger.json"
+	,"basePath":""
+	,"produces": [
+		"application/json" 
+	]
+	,"schemes": [
+		"http"
+	]
+	,"securityDefinitions": {
+	}
+	,"swagger":"2.0"
+	,"paths": { 
+		"/hello": { 
+			"get": {
+				"parameters":[ 
+				] 
+				,"description":"The proverbial hello world minus the world." 
+				,"tags":[
+					"hello"
+				]
+				,"responses":{
+					"200": {
+						"description":"Hello response to caller" 
+					}
+				}
+			}
+		}
+	}
+	,"definitions":{
+	}
+	,"responses":{ 
+	},"parameters":{ 
+	},"tags": [
+		{ "name":"hello"
+			,"description":"Says hello to the caller" 
+		}
+	]
+}
