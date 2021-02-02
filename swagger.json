@@ -3,7 +3,7 @@
 		"description":"CS 4783 Assignment"
 		,"title":"CS 4783","version":"1.0.0" 
 	}
-	,"host":"localhost:12250"
+	,"host":"localhost:8080"
 	, "configUrl":"localhost:12250/swagger.json"
 	,"basePath":""
 	,"produces": [
