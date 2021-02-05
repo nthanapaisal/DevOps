@@ -20,22 +20,32 @@ router.get('/',
 
         logger.info("success");
 
-        utilities.sendResponse(response, 200, result);
+        utilities.sendResponse(response, 200, "“id”:1,“address”:“501 Test Ave.”,”zip”:”78222”},{“id”:2,“address”:“123 Main Street”,”zip”:”78222”");
+    }
+);
+
+router.post('/',
+  async function(request, response) {
+  		const result = gateway.fetchProperties(id);
+
+        logger.info("success");
+
+        utilities.sendResponse(response, 200, "”added”,”id”:<generated id for property>");
     }
 );
 
 
 router.get('/:propertyId',
   async function(request, response) {
-        //add parameters in propertydb.js will ---
-        const result = gateway.fetchProperties();
-          
         //get propertyId from the path
         let id = request.params.propertyId;
-        
+
+        //add parameters in propertydb.js will ---
+        const result = gateway.fetchProperties(id);
+          
         logger.info("success");
 
-        utilities.sendResponse(response, 200, "returning a property number: " + id);
+        utilities.sendResponse(response, 200, "“id”:1,“address”:“123 Test Ave.”,”city”:”San Antonio”,”state”:”TX”,”zip”:”78222”");
     }
 );
 
