@@ -1,7 +1,8 @@
 {
 	"info": {
-		"description":"CS 4783 Assignment"
-		,"title":"CS 4783","version":"1.0.0" 
+		"description":"CS 4783 Assignment by Supakjeera Thanapaisal and Anna Arroyo"
+		,"title":"CS 4783 Spring 2021 Project"
+		,"version":"1.0.0" 
 	}
 	,"host":"localhost:8080"
 	, "configUrl":"localhost:12250/swagger.json"
@@ -20,13 +21,72 @@
 			"get": {
 				"parameters":[ 
 				] 
-				,"description":"The proverbial hello world minus the world." 
+				,"description":"Hello!! Welcome to our simple web service" 
 				,"tags":[
 					"hello"
 				]
 				,"responses":{
 					"200": {
 						"description":"Hello response to caller" 
+					}
+				}
+			}
+		}
+		,"/properties": { 
+			"get": {
+				"parameters":[ 
+					{
+						"address":"pAddress"
+						,"city":"pCity"
+						,"state":"pState"
+						,"zip":"pZip"
+					}
+				
+				] 
+				,"description":"Fetching list of properties functions" 
+				,"tags":[
+					"properties"
+				]
+				,"responses":{
+					"200": {
+						"description":"Displayed list of properties functions successfully" 
+					}
+				}
+			},
+			"post": {
+				"parameters":[ 
+				] 
+				,"description":"Insert a new property" 
+				,"tags":[
+					"properties"
+				]
+				,"responses":{
+					"200": {
+						"description":"Property inserted successfully" 
+					},
+					"400": {
+						"description":"Bad request"
+					}
+				}
+			}
+		}
+		,"/properties/<propertyId>": { 
+			"get": {
+				"parameters":[ 
+				] 
+				,"description":"Display a single property" 
+				,"tags":[
+					"properties"
+				]
+				,"responses":{
+					"200": {
+						"description":"Displayed a single property sucessfully" 
+					},
+					"400": {
+						"description":"Bad request" 
+					},
+					"404": {
+						"description":"Not found"
 					}
 				}
 			}
@@ -39,6 +99,9 @@
 	},"tags": [
 		{ "name":"hello"
 			,"description":"Says hello to the caller" 
+		},
+		{ "name":"properties"
+			,"description":"Properties functions "
 		}
 	]
 }

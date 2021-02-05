@@ -26,6 +26,13 @@ app.use('/hello', helloRouter);
 // setup the logger
 const utilities = require("./misc/utilities");
 const logger = utilities.getLogger();
+/*
+const cors = require("cors");
+// enabling cors for all requests by using cors middleware
+app.use(cors());
+// Enable pre-flight
+app.options("*", cors());*/
+
 
 var server = app.listen(process.env.LISTEN_PORT, function () {
 	console.log('API server is listening on port ' + process.env.LISTEN_PORT + '...');

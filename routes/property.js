@@ -24,4 +24,19 @@ router.get('/',
     }
 );
 
+
+router.get('/:propertyId',
+  async function(request, response) {
+        //add parameters in propertydb.js will ---
+        const result = gateway.fetchProperties();
+          
+        //get propertyId from the path
+        let id = request.params.propertyId;
+        
+        logger.info("success");
+
+        utilities.sendResponse(response, 200, "returning a property number: " + id);
+    }
+);
+
 module.exports = router;
