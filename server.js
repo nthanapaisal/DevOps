@@ -5,12 +5,23 @@
 // read config
 require('dotenv').config();
 
+const fs = require('fs');
+const https = require('https');
+const http = require('http');
+var cors = require('cors');
+
 // express makes web services for node easy
 const express = require('express');
 
+var options = {
+    key: fs.readFileSync('.ssl/server.key'),
+    cert: fs.readFileSync('.ssl/server.cert'),
+};
+
 // init the express
 const app = express();
-app.use(express.json());
+//app.use(express.json());
+app.use(cors());
 
 // hook up the routers
 // property router handles all the routes that work with properties
@@ -26,8 +37,19 @@ app.use('/hello', helloRouter);
 // setup the logger
 const utilities = require("./misc/utilities");
 const logger = utilities.getLogger();
+/*
+const cors = require("cors");
+// enabling cors for all requests by using cors middleware
+app.use(cors());
+// Enable pre-flight
+app.options("*", cors());*/
 
-var server = app.listen(process.env.LISTEN_PORT, function () {
-	console.log('API server is listening on port ' + process.env.LISTEN_PORT + '...');
-    logger.info('API server is listening on port ' + process.env.LISTEN_PORT + '...');
+
+var httpServer = http.createServer(app).listen(process.env.HTTP_LISTEN_PORT, function () {
+	console.log('API server is listening on port ' + process.env.HTTP_LISTEN_PORT + '...');
+    logger.info('API server is listening on port ' + process.env.HTTP_LISTEN_PORT + '...');
+});
+var httpsServer = https.createServer(options, app).listen(process.env.HTTPS_LISTEN_PORT, function () {
+	console.log('API server is listening on port ' + process.env.HTTPS_LISTEN_PORT + '...');
+    logger.info('API server is listening on port ' + process.env.HTTPS_LISTEN_PORT + '...');
 });
