@@ -5,13 +5,13 @@
 		,"version":"1.0.0" 
 	}
 	,"host":"localhost:8080"
-	, "configUrl":"localhost:12250/swagger.json"
+	, "configUrl":"localhost:8080/swagger.json"
 	,"basePath":""
 	,"produces": [
 		"application/json" 
 	]
 	,"schemes": [
-		"http"
+		"https"
 	]
 	,"securityDefinitions": {
 	}
