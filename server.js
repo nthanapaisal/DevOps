@@ -44,7 +44,6 @@ app.use(cors());
 // Enable pre-flight
 app.options("*", cors());*/
 
-
 var httpServer = http.createServer(app).listen(process.env.HTTP_LISTEN_PORT, function () {
 	console.log('API server is listening on port ' + process.env.HTTP_LISTEN_PORT + '...');
     logger.info('API server is listening on port ' + process.env.HTTP_LISTEN_PORT + '...');
