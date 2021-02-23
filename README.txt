@@ -19,3 +19,6 @@ Push new changes to remote:
 
 If you messed up the password part:
 	Go to > Control Panel\User Accounts\Credential Manager > Manage Windows Credentials and remove all generic credentials involving Git. 
+
+Set up SSH key
+	https://www.youtube.com/watch?v=mNtQ55quG9M
