@@ -11,7 +11,7 @@
 		"application/json" 
 	]
 	,"schemes": [
-		"https"
+		"http"
 	]
 	,"securityDefinitions": {
 	}
@@ -34,14 +34,7 @@
 		}
 		,"/properties": { 
 			"get": {
-				"parameters":[ 
-					{
-						"address":"pAddress"
-						,"city":"pCity"
-						,"state":"pState"
-						,"zip":"pZip"
-					}
-				
+				"parameters":[ 				
 				] 
 				,"description":"Fetching list of properties functions" 
 				,"tags":[
@@ -55,6 +48,34 @@
 			},
 			"post": {
 				"parameters":[ 
+					{
+						"name":"address",
+						"in":"query",
+						"description":"address",
+						"type": "string",
+						"required": true
+					},
+					{
+						"name":"city",
+						"in":"query",
+						"description":"city",
+						"type": "string",
+						"required": true
+					},
+					{
+						"name":"state",
+						"in":"query",
+						"description":"state",
+						"type": "string",
+						"required": true
+					},
+					{
+						"name":"zip",
+						"in":"query",
+						"description":"zip code",
+						"type": "string",
+						"required": true
+					}
 				] 
 				,"description":"Insert a new property" 
 				,"tags":[
@@ -73,6 +94,13 @@
 		,"/properties/<propertyId>": { 
 			"get": {
 				"parameters":[ 
+					{
+						"name":"id",
+						"in":"path",
+						"description":"id of property",
+						"type": "integer",
+						"required": true
+					}
 				] 
 				,"description":"Display a single property" 
 				,"tags":[
@@ -81,6 +109,76 @@
 				,"responses":{
 					"200": {
 						"description":"Displayed a single property sucessfully" 
+					},
+					"400": {
+						"description":"Bad request" 
+					},
+					"404": {
+						"description":"Not found"
+					}
+				}
+			},
+		
+			"delete": {
+				"parameters":[ 
+					{
+						"name":"id",
+						"in":"path",
+						"description":"id of property",
+						"type": "integer",
+						"required": true
+					}
+				] 
+				,"description":"Delete the property with an id value of <id>." 
+				,"tags":[
+					"properties"
+				]
+				,"responses":{
+					"200": {
+						"description":"Deleted" 
+					},
+					"400": {
+						"description":"Bad request" 
+					},
+					"404": {
+						"description":"Not found"
+					}
+				}
+			},
+			"put": {
+				"parameters":[ 
+					{
+						"name":"address",
+						"in":"query",
+						"description":"address",
+						"type": "string"
+					},
+					{
+						"name":"city",
+						"in":"query",
+						"description":"city",
+						"type": "string"
+					},
+					{
+						"name":"state",
+						"in":"query",
+						"description":"state",
+						"type": "string"
+					},
+					{
+						"name":"zip",
+						"in":"query",
+						"description":"zip code",
+						"type": "string"
+					}
+				] 
+				,"description":"Updates the property with an id value of <id>." 
+				,"tags":[
+					"properties"
+				]
+				,"responses":{
+					"200": {	
+						"description":"Updated" 
 					},
 					"400": {
 						"description":"Bad request" 

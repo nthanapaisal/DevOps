@@ -49,4 +49,29 @@ router.get('/:propertyId',
     }
 );
 
+router.delete('/:propertyId',
+  async function(request, response) {
+        //get propertyId from the path
+        let id = request.params.propertyId;
+
+        //add parameters in propertydb.js will ---
+        const result = gateway.fetchProperties(id);
+          
+        logger.info("success");
+        utilities.sendResponse(response, 200, "”deleted”");
+        
+    }
+);
+
+router.put('/:propertyId',
+  async function(request, response) {
+        const result = gateway.fetchProperties();
+
+        logger.info("success");
+
+        utilities.sendResponse(response, 200, "”updated”");
+        
+    }
+);
+
 module.exports = router;
