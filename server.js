@@ -49,7 +49,7 @@ var httpServer = http.createServer(app).listen(process.env.HTTP_LISTEN_PORT, fun
 	console.log('API server is listening on port ' + process.env.HTTP_LISTEN_PORT + '...');
     logger.info('API server is listening on port ' + process.env.HTTP_LISTEN_PORT + '...');
 });
-var httpsServer = https.createServer(options, app).listen(process.env.HTTPS_LISTEN_PORT, function () {
+/*var httpsServer = https.createServer(options, app).listen(process.env.HTTPS_LISTEN_PORT, function () {
 	console.log('API server is listening on port ' + process.env.HTTPS_LISTEN_PORT + '...');
     logger.info('API server is listening on port ' + process.env.HTTPS_LISTEN_PORT + '...');
-});
+});*/
