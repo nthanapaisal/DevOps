@@ -13,10 +13,10 @@ var cors = require('cors');
 // express makes web services for node easy
 const express = require('express');
 
-var options = {
+/*var options = {
     key: fs.readFileSync('.ssl/server.key'),
     cert: fs.readFileSync('.ssl/server.cert'),
-};
+};*/
 
 // init the express
 const app = express();
