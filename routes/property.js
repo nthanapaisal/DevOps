@@ -26,7 +26,7 @@ router.get('/',
 
 router.post('/',
   async function(request, response) {
-  		const result = gateway.fetchProperties(id);
+  		const result = gateway.fetchProperties();
 
         logger.info("success");
 
