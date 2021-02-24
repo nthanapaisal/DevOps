@@ -22,3 +22,8 @@ If you messed up the password part:
 
 Set up SSH key
 	https://www.youtube.com/watch?v=mNtQ55quG9M
+
+SSL set up:
+	https://flaviocopes.com/express-https-self-signed-certificate/
+
+
