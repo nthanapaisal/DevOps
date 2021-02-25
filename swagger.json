@@ -5,15 +5,21 @@
 		,"version":"1.0.0" 
 	}
 	,"host":"localhost:3000"
-	, "configUrl":"localhost:3000/swagger.json"
+	,"configUrl":"localhost:3000/swagger.json"
 	,"basePath":""
 	,"produces": [
 		"application/json" 
 	]
 	,"schemes": [
+		"https",
 		"http"
 	]
 	,"securityDefinitions": {
+		"api_key": {
+			"type":"apiKey",
+			"in":"header",
+			"name":"api_key"
+		}
 	}
 	,"swagger":"2.0"
 	,"paths": { 
@@ -81,6 +87,11 @@
 				,"tags":[
 					"properties"
 				]
+				,"security":[
+					{
+						"api_key":[]
+					}
+				]
 				,"responses":{
 					"200": {
 						"description":"Property inserted successfully" 
@@ -133,6 +144,11 @@
 				,"tags":[
 					"properties"
 				]
+				,"security":[
+					{
+						"api_key":[]
+					}
+				]
 				,"responses":{
 					"200": {
 						"description":"Deleted" 
@@ -175,6 +191,11 @@
 				,"description":"Updates the property with an id value of <id>." 
 				,"tags":[
 					"properties"
+				]
+				,"security":[
+					{
+						"api_key":[]
+					}
 				]
 				,"responses":{
 					"200": {	
