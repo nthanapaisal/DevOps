@@ -98,6 +98,9 @@
 					},
 					"400": {
 						"description":"Bad request"
+					},
+					"401": {
+						"description":"API Key invalid"
 					}
 				}
 			}
@@ -156,9 +159,13 @@
 					"400": {
 						"description":"Bad request" 
 					},
+					"401": {
+						"description":"API Key invalid"
+					},
 					"404": {
 						"description":"Not found"
 					}
+
 				}
 			},
 			"put": {
@@ -203,6 +210,9 @@
 					},
 					"400": {
 						"description":"Bad request" 
+					},
+					"401": {
+						"description":"API Key invalid"
 					},
 					"404": {
 						"description":"Not found"

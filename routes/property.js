@@ -1,9 +1,8 @@
 let express = require('express');
 let router = express.Router();
-
 const gateway = require("../gateways/propertydb");
-
 const utilities = require("../misc/utilities");
+const accessControl = require("../misc/accessControl");
 const logger = utilities.getLogger();
 
 // I like to log who is calling the web services
@@ -17,20 +16,25 @@ router.use(function (req, res, next) {
 router.get('/',
   async function(request, response) {
   		const result = gateway.fetchProperties();
-
         logger.info("success");
-
         utilities.sendResponse(response, 200, "“id”:1,“address”:“501 Test Ave.”,”zip”:”78222”},{“id”:2,“address”:“123 Main Street”,”zip”:”78222”");
     }
 );
 
 router.post('/',
   async function(request, response) {
-  		const result = gateway.fetchProperties(id);
+        //check if its an apikey
+        let apiKey = request.headers.api_key;
+        if(!accessControl.validAPI(apiKey)){
+            logger.info("error");  
+            utilities.sendResponse(response, 401, "Invalid API key"); 
+        }else{
 
-        logger.info("success");
+            const result = gateway.fetchProperties();
 
-        utilities.sendResponse(response, 200, "”added”,”id”:<generated id for property>");
+            logger.info("success");
+            utilities.sendResponse(response, 200, "”added”,”id”:<generated id for property>");
+        }
     }
 );
 
@@ -39,12 +43,10 @@ router.get('/:propertyId',
   async function(request, response) {
         //get propertyId from the path
         let id = request.params.propertyId;
-
         //add parameters in propertydb.js will ---
         const result = gateway.fetchProperties(id);
           
         logger.info("success");
-
         utilities.sendResponse(response, 200, "“id”:1,“address”:“123 Test Ave.”,”city”:”San Antonio”,”state”:”TX”,”zip”:”78222”");
     }
 );
@@ -53,10 +55,10 @@ router.delete('/:propertyId',
   async function(request, response) {
         //get propertyId from the path
         let id = request.params.propertyId;
-
         //add parameters in propertydb.js will ---
         const result = gateway.fetchProperties(id);
           
+
         logger.info("success");
         utilities.sendResponse(response, 200, "”deleted”");
         
@@ -65,13 +67,16 @@ router.delete('/:propertyId',
 
 router.put('/:propertyId',
   async function(request, response) {
-        const result = gateway.fetchProperties();
+        //get propertyId from the path
+        let id = request.params.propertyId;
+        const result = gateway.fetchProperties(id);
+
 
         logger.info("success");
-
         utilities.sendResponse(response, 200, "”updated”");
         
     }
 );
+
 
 module.exports = router;
