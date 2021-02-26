@@ -58,29 +58,37 @@
 						"name":"address",
 						"in":"query",
 						"description":"address",
-						"type": "string",
-						"required": true
+						"required": true,
+						"schema":{
+							"$ref":"#/definitions/Property"
+						}
 					},
 					{
 						"name":"city",
 						"in":"query",
 						"description":"city",
-						"type": "string",
-						"required": true
+						"required": true,
+						"schema":{
+							"$ref":"#/definitions/Property"
+						}
 					},
 					{
 						"name":"state",
 						"in":"query",
 						"description":"state",
-						"type": "string",
-						"required": true
+						"required": true,
+						"schema":{
+							"$ref":"#/definitions/Property"
+						}
 					},
 					{
 						"name":"zip",
 						"in":"query",
 						"description":"zip code",
-						"type": "string",
-						"required": true
+						"required": true,
+						"schema":{
+							"$ref":"#/definitions/Property"
+						}
 					}
 				] 
 				,"description":"Insert a new property" 
@@ -139,8 +147,11 @@
 						"name":"id",
 						"in":"path",
 						"description":"id of property",
-						"type": "integer",
-						"required": true
+						"required": true,
+						"schema":{
+							"$ref":"#/definitions/Property"
+						}
+						
 					}
 				] 
 				,"description":"Delete the property with an id value of <id>." 
@@ -174,25 +185,33 @@
 						"name":"address",
 						"in":"query",
 						"description":"address",
-						"type": "string"
+						"schema":{
+							"$ref":"#/definitions/Property"
+						}
 					},
 					{
 						"name":"city",
 						"in":"query",
 						"description":"city",
-						"type": "string"
+						"schema":{
+							"$ref":"#/definitions/Property"
+						}
 					},
 					{
 						"name":"state",
 						"in":"query",
 						"description":"state",
-						"type": "string"
+						"schema":{
+							"$ref":"#/definitions/Property"
+						}
 					},
 					{
 						"name":"zip",
 						"in":"query",
 						"description":"zip code",
-						"type": "string"
+						"schema":{
+							"$ref":"#/definitions/Property"
+						}
 					}
 				] 
 				,"description":"Updates the property with an id value of <id>." 
@@ -222,6 +241,26 @@
 		}
 	}
 	,"definitions":{
+		"Property": {
+			"type": "object",
+			"properties": {
+				"address": {
+					"type": "string"
+				},
+				"city": {
+					"type": "string"
+				},
+				"state": {
+					"type": "string"
+				},
+				"zip": {
+					"type": "string"
+				},
+				"id": {
+					"type": "integer"
+				}
+			}
+		}
 	}
 	,"responses":{ 
 	},"parameters":{ 
