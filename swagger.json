@@ -118,7 +118,7 @@
 				"parameters":[ 
 					{
 						"name":"id",
-						"in":"path",
+						"in":"query",
 						"description":"id of property",
 						"type": "integer",
 						"required": true
@@ -145,7 +145,7 @@
 				"parameters":[ 
 					{
 						"name":"id",
-						"in":"path",
+						"in":"query",
 						"description":"id of property",
 						"required": true,
 						"schema":{
@@ -181,6 +181,13 @@
 			},
 			"put": {
 				"parameters":[ 
+					{
+						"name":"id",
+						"in":"query",
+						"description":"id of property",
+						"type": "integer",
+						"required": true
+					},
 					{
 						"name":"address",
 						"in":"query",

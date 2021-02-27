@@ -18,7 +18,7 @@ router.get('/',
   async function(request, response) {
   		const result = gateway.fetchProperties();
         logger.info("success");
-        utilities.sendResponse(response, 200, "“id”:1,“address”:“501 Test Ave.”,”zip”:”78222”},{“id”:2,“address”:“123 Main Street”,”zip”:”78222”");
+        utilities.sendResponse(response, 200, result);
     }
 );
 
@@ -31,7 +31,7 @@ router.post('/',
         }else{
             const result = gateway.insert(request);
             logger.info("success");
-            utilities.sendResponse(response, 200, "”added”,”id”:" + result);
+            utilities.sendResponse(response, 200, "Inserted property Id:" + result); 
         }
     }
 );
@@ -39,28 +39,25 @@ router.post('/',
 
 router.get('/:propertyId',
   async function(request, response) {
-
-        const result = gateway.fetchProperties();
-          
+        
+        const result = gateway.fetchProperty(request);
         logger.info("success");
-        utilities.sendResponse(response, 200, "“id”:1,“address”:“123 Test Ave.”,”city”:”San Antonio”,”state”:”TX”,”zip”:”78222”");
+        utilities.sendResponse(response, 200,result);
     }
 );
 
 router.delete('/:propertyId',
   async function(request, response) {
-        //get propertyId from the path
-        //let id = request.params.propertyId;
-        //add parameters in propertydb.js will ---
 
         if(accessControl.validateAPIKey(request) == false){
             logger.info("error");  
             utilities.sendResponse(response, 401, "Invalid API key"); 
         }
         else{
-            const result = gateway.fetchProperties();
+            const result = gateway.delete(request);
+            let propertyId = request.params.propertyId;
             logger.info("success");
-            utilities.sendResponse(response, 200, "”deleted”");
+            utilities.sendResponse(response, 200, "deleted property Id:" + propertyId);
         }
         
     }
@@ -76,7 +73,7 @@ router.put('/:propertyId',
             utilities.sendResponse(response, 401, "Invalid API key"); 
         }
         else{
-            const result = gateway.fetchProperties();
+            const result = gateway.update(request);
             logger.info("success");
             utilities.sendResponse(response, 200, "”updated”");
         }

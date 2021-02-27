@@ -26,4 +26,8 @@ Set up SSH key
 SSL set up:
 	https://flaviocopes.com/express-https-self-signed-certificate/
 
+DB setup:
+	https://codeforgeek.com/nodejs-mysql-tutorial/
+	https://flaviocopes.com/express-get-query-variables/
+	https://expressjs.com/en/api.html#req
 
