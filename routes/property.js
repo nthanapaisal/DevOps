@@ -16,7 +16,7 @@ router.use(function (req, res, next) {
 // this is the top-level GET route for the /properties router
 router.get('/',
   async function(request, response) {
-  		const result = gateway.fetchProperties();
+  		const result = await gateway.fetchProperties();
         logger.info("success");
         utilities.sendResponse(response, 200, result);
     }
@@ -31,7 +31,7 @@ router.post('/',
         }else{
             const result = await gateway.insert(request);
             logger.info("success");
-            utilities.sendResponse(response, 200, "Inserted property Id:" + result); 
+            utilities.sendResponse(response, 200, "Inserted property Id: " + result); 
         }
     }
 );
@@ -39,8 +39,7 @@ router.post('/',
 
 router.get('/:propertyId',
   async function(request, response) {
-        
-        const result = gateway.fetchProperty(request);
+        const result = await gateway.fetchProperty(request);
         logger.info("success");
         utilities.sendResponse(response, 200,result);
     }
@@ -54,10 +53,9 @@ router.delete('/:propertyId',
             utilities.sendResponse(response, 401, "Invalid API key"); 
         }
         else{
-            const result = gateway.delete(request);
-            let propertyId = request.params.propertyId;
+            const result = await gateway.delete(request);
             logger.info("success");
-            utilities.sendResponse(response, 200, "deleted property Id:" + propertyId);
+            utilities.sendResponse(response, 200, "Deleted property: " + result);
         }
         
     }
@@ -73,9 +71,9 @@ router.put('/:propertyId',
             utilities.sendResponse(response, 401, "Invalid API key"); 
         }
         else{
-            const result = gateway.update(request);
+            const result = await gateway.update(request);
             logger.info("success");
-            utilities.sendResponse(response, 200, "”updated”");
+            utilities.sendResponse(response, 200, "Updated property: " + result);
         }
     }
 );

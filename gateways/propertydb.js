@@ -16,29 +16,33 @@ module.exports = {
 	fetchProperties: () => {
 		let sql = `SELECT * FROM property`;
 		var ret = null;
-		// execute the insert statment
-		connection.query(sql, function (err, result) {
-			if (err) throw err;
-			ret = JSON.stringify(result);
-			console.log("All properties fetched");
-			
+
+		return new Promise((resolve, reject)=>{
+			pool.query(sql, (error, result)=>{
+				if(error){
+					return reject(error);
+				}
+				  console.log("All properties fetched.");
+				  return resolve(result);
+			 
+			});
 		});
-		connection.end();
-		return ret;
 
 	},
 	fetchProperty: (request) => {
 	 	let id = request.query.id;
 		let sql = `SELECT * FROM property WHERE id = ?`; 
 		
-		// execute the insert statment
-		connection.query(sql,[id], function (err, result) {
-			if (err) throw err;
-			ret = JSON.stringify(result);
-			console.log("1 record fetched, ID: " + id);
+		return new Promise((resolve, reject)=>{
+			pool.query(sql,[id], (error, result)=>{
+				if(error){
+					return reject(error);
+				}
+				  console.log("1 record fetched, ID: " + id);
+				  return resolve(result);
+			 
+			});
 		});
-		connection.end();
-		return ret; //return the whole table
 
 	},
 	insert: (request) => {
@@ -66,14 +70,16 @@ module.exports = {
 		let id = request.query.id;
 		let sql = `DELETE FROM property WHERE id = ?`; 
 
-		// execute the insert statment
-		connection.query(sql,[id],function (err, result) {
-			if (err) throw err;
-			ret = JSON.stringify(result);
-			console.log("1 record deleted, ID: " + id);
+		return new Promise((resolve, reject)=>{
+			pool.query(sql,[id], (error, result)=>{
+				if(error){
+					return reject(error);
+				}
+				  console.log("1 record deleted, ID: " + id);
+				  return resolve(id);
+			 
+			});
 		});
-		connection.end();
-		return ret; //return deleted row 
 	}
 	,update: (request) => {
 		let id = request.query.id;
@@ -82,17 +88,18 @@ module.exports = {
 		let state = request.query.state;
 		let zip = request.query.zip;
 		let row = [address, city, state, zip, id];
-		let sql = `UPDATE property SET address = ?, city = ?, city = ?, zip = ? WHERE id = ?`;
-
-		// execute the insert statment
-		connection.query(sql,row,function (err, result) {
-			if (err) throw err;
-			ret = JSON.stringify(result);
-			console.log("1 record update, ID: " + id);
-		});
+		let sql = `UPDATE property SET address = ?, city = ?, state = ?, zip = ? WHERE id = ?`;
 		
-		connection.end();
-		return ret; 
+		return new Promise((resolve, reject)=>{
+			pool.query(sql,[address, city, state, zip, id], (error, result)=>{
+				if(error){
+					return reject(error);
+				}
+				  console.log("1 record updated, ID: " + id);
+				  return resolve(id);
+			 
+			});
+		});
 
 	}
 };
