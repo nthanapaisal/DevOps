@@ -29,7 +29,7 @@ router.post('/',
             logger.info("error");  
             utilities.sendResponse(response, 401, "Invalid API key"); 
         }else{
-            const result = gateway.insert(request);
+            const result = await gateway.insert(request);
             logger.info("success");
             utilities.sendResponse(response, 200, "Inserted property Id:" + result); 
         }

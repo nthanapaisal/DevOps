@@ -1,20 +1,16 @@
 const utilities = require("../misc/utilities");
 const logger = utilities.getLogger();
+require("dotenv").config();
 let mysql = require('mysql');
 
-let connection = mysql.createConnection({
-    host: '129.114.27.152',
-    user: 'iaf873',
-    password: 'C6L7Xf2GvpeySBMn1XYf',
-    database: 'cs4783_iaf873'
+const pool = mysql.createPool({
+    connectionLimit: 10,    // the number of connections node.js will hold open to our database
+    password: process.env.MYSQL_PASSWORD,
+    user: process.env.MYSQL_USER,
+    database: process.env.MYSQL_DATABASE,
+    host: process.env.MYSQL_HOST
+ 
 });
-
-connection.connect(function(err) {
-    if (err) {
-      return console.error('error: ' + err.message);
-    }
-    console.log('Connected to the MySQL server.');
-  });
 
 module.exports = {
 	fetchProperties: () => {
@@ -31,8 +27,6 @@ module.exports = {
 		return ret;
 
 	},
-
-
 	fetchProperty: (request) => {
 	 	let id = request.query.id;
 		let sql = `SELECT * FROM property WHERE id = ?`; 
@@ -48,7 +42,7 @@ module.exports = {
 
 	},
 	insert: (request) => {
-		let id = ""
+		let id;
 		let address = request.query.address;
 		let city = request.query.city;
 		let state = request.query.state;
@@ -56,16 +50,17 @@ module.exports = {
 		let row = [address, city, state, zip];
 		let sql = `INSERT INTO property(address,city,state,zip)
            VALUES(?)`;
-		
-		// execute the insert statment
-		connection.query(sql,[row], function (err, result) {
-			if (err) throw err;
-			ret = JSON.stringify(result);
-			console.log("1 record inserted, ID: " + result.insertId);
-		  });
 
-		connection.end();
-		return ret;
+		return new Promise((resolve, reject)=>{
+			pool.query(sql,[row], (error, result)=>{
+				if(error){
+					return reject(error);
+				}
+				  console.log("1 record inserted, ID: " + result.insertId);
+				  return resolve(result.insertId);
+			 
+			});
+		});
 	}
 	,delete: (request) => {
 		let id = request.query.id;
