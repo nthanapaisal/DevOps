@@ -113,7 +113,7 @@
 				}
 			}
 		}
-		,"/properties/<propertyId>": { 
+		,"/properties/{propertyId}": { 
 			"get": {
 				"parameters":[ 
 					{
@@ -144,13 +144,12 @@
 			"delete": {
 				"parameters":[ 
 					{
-						"name":"id",
-						"in":"query",
+						"name":"propertyId",
+						"in":"path",
 						"description":"id of property",
 						"required": true,
-						"schema":{
-							"$ref":"#/definitions/Property"
-						}
+						"type":"integer",
+						"format":"int64"
 						
 					}
 				] 
@@ -182,40 +181,17 @@
 			"put": {
 				"parameters":[ 
 					{
-						"name":"id",
-						"in":"query",
-						"description":"id of property",
-						"type": "integer",
-						"required": true
-					},
+						"name":"propertyId",
+                        "in":"path",
+                        "description":"id of property to return",
+                        "type": "integer",
+						"format":"int64",
+                        "required": true
+                    },
 					{
-						"name":"address",
-						"in":"query",
-						"description":"address",
-						"schema":{
-							"$ref":"#/definitions/Property"
-						}
-					},
-					{
-						"name":"city",
-						"in":"query",
-						"description":"city",
-						"schema":{
-							"$ref":"#/definitions/Property"
-						}
-					},
-					{
-						"name":"state",
-						"in":"query",
-						"description":"state",
-						"schema":{
-							"$ref":"#/definitions/Property"
-						}
-					},
-					{
-						"name":"zip",
-						"in":"query",
-						"description":"zip code",
+						"in":"body",
+						"name":"body",
+						"description":"Property to be updated",
 						"schema":{
 							"$ref":"#/definitions/Property"
 						}

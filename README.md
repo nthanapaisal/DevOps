@@ -10,6 +10,7 @@ HTTPS_LISTEN_PORT=3000
 <p>
 npm i
 npm install --save cors
+npm install --save body-parser
 npm install mysql
 </p>
 

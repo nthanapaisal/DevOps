@@ -21,7 +21,9 @@ var options = {
 // init the express
 const app = express();
 //app.use(express.json());
-app.use(cors());
+app.use(cors(), express.urlencoded({
+    extended: true
+  }));
 
 // hook up the routers
 // property router handles all the routes that work with properties
@@ -37,17 +39,13 @@ app.use('/hello', helloRouter);
 // setup the logger
 const utilities = require("./misc/utilities");
 const logger = utilities.getLogger();
-/*
-const cors = require("cors");
-// enabling cors for all requests by using cors middleware
-app.use(cors());
-// Enable pre-flight
-app.options("*", cors());*/
 
-var httpServer = http.createServer(app).listen(process.env.HTTP_LISTEN_PORT, function () {
+
+/*var httpServer = http.createServer(app).listen(process.env.HTTP_LISTEN_PORT, function () {
 	console.log('API server is listening on port ' + process.env.HTTP_LISTEN_PORT + '...');
     logger.info('API server is listening on port ' + process.env.HTTP_LISTEN_PORT + '...');
-});
+});*/
+
 var httpsServer = https.createServer(options, app).listen(process.env.HTTPS_LISTEN_PORT, function () {
 	console.log('API server is listening on port ' + process.env.HTTPS_LISTEN_PORT + '...');
     logger.info('API server is listening on port ' + process.env.HTTPS_LISTEN_PORT + '...');

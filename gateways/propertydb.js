@@ -2,6 +2,7 @@ const utilities = require("../misc/utilities");
 const logger = utilities.getLogger();
 require("dotenv").config();
 let mysql = require('mysql');
+const validateInputs = require("../misc/validateInputs");
 
 const pool = mysql.createPool({
     connectionLimit: 10,    // the number of connections node.js will hold open to our database
@@ -10,6 +11,14 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE,
     host: process.env.MYSQL_HOST
  
+});
+
+pool.getConnection(function(err, connection) {
+	if (err) {
+		throw err;
+	}
+	else
+		console.log("Connected to the database.");
 });
 
 module.exports = {
@@ -31,15 +40,21 @@ module.exports = {
 	},
 	fetchProperty: (request) => {
 	 	let id = request.query.id;
-		let sql = `SELECT * FROM property WHERE id = ?`; 
+		let sql = `SELECT * FROM property WHERE property_id = ?`; 
 		
 		return new Promise((resolve, reject)=>{
-			pool.query(sql,[id], (error, result)=>{
+			pool.query(sql, id, (error, result)=>{
 				if(error){
 					return reject(error);
 				}
-				  console.log("1 record fetched, ID: " + id);
-				  return resolve(result);
+				  
+				if (!result.length) {
+					if (result)
+						return reject(error);
+				}
+				
+				console.log("1 record fetched, ID: " + id);
+				return resolve(result);
 			 
 			});
 		});
@@ -67,39 +82,42 @@ module.exports = {
 		});
 	}
 	,delete: (request) => {
-		let id = request.query.id;
-		let sql = `DELETE FROM property WHERE id = ?`; 
-
+		let id = request.params.propertyId;
+		let sql = `DELETE FROM property WHERE property_id = ?`; 
+			
 		return new Promise((resolve, reject)=>{
-			pool.query(sql,[id], (error, result)=>{
+			pool.query(sql,id, (error, result)=>{
 				if(error){
 					return reject(error);
 				}
-				  console.log("1 record deleted, ID: " + id);
-				  return resolve(id);
-			 
+				if(result.affectedRows <= 0){
+					return reject(error);
+				}
+
+				console.log("1 record deleted, ID: " + id);
+				console.log("affected rows: " + result.affectedRows);
+
+				return resolve(id);
+			
 			});
 		});
 	}
-	,update: (request) => {
-		let id = request.query.id;
-		let address = request.query.address;
-		let city = request.query.city;
-		let state = request.query.state;
-		let zip = request.query.zip;
-		let row = [address, city, state, zip, id];
-		let sql = `UPDATE property SET address = ?, city = ?, state = ?, zip = ? WHERE id = ?`;
+	,update: (columnsToBeUpdated, request) => {
+
+		let id = request.params.propertyId;
+
+		let sql = `UPDATE property SET ? WHERE property_id = ?`;
 		
 		return new Promise((resolve, reject)=>{
-			pool.query(sql,[address, city, state, zip, id], (error, result)=>{
+			pool.query(sql, [columnsToBeUpdated, id], (error, result)=>{
 				if(error){
 					return reject(error);
 				}
-				  console.log("1 record updated, ID: " + id);
-				  return resolve(id);
-			 
+				console.log("1 record updated, ID: " + id);
+				return resolve(id);
+			
 			});
 		});
-
+	
 	}
 };
