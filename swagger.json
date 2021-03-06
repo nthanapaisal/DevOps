@@ -117,7 +117,7 @@
 			"get": {
 				"parameters":[ 
 					{
-						"name":"id",
+						"name":"propertyId",
 						"in":"query",
 						"description":"id of property",
 						"type": "integer",
@@ -238,9 +238,6 @@
 				},
 				"zip": {
 					"type": "string"
-				},
-				"id": {
-					"type": "integer"
 				}
 			}
 		}

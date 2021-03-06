@@ -39,7 +39,7 @@ module.exports = {
 
 	},
 	fetchProperty: (request) => {
-	 	let id = request.query.id;
+	 	let id = request.query.propertyId;
 		let sql = `SELECT * FROM property WHERE property_id = ?`; 
 		
 		return new Promise((resolve, reject)=>{
@@ -105,9 +105,7 @@ module.exports = {
 	,update: (columnsToBeUpdated, request) => {
 
 		let id = request.params.propertyId;
-
 		let sql = `UPDATE property SET ? WHERE property_id = ?`;
-		
 		return new Promise((resolve, reject)=>{
 			pool.query(sql, [columnsToBeUpdated, id], (error, result)=>{
 				if(error){
