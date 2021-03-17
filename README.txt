@@ -12,7 +12,7 @@ Creating a branch:
 
 Merging to master:
 	git checkout master
-	git merge --no-ff "name of branch you want to merge"
+	git merge "name of branch you want to merge"
 
 Push new changes to remote:
 	GIT_SSL_NO_VERIFY=true git push origin master	
