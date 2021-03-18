@@ -46,7 +46,7 @@ const logger = utilities.getLogger();
     logger.info('API server is listening on port ' + process.env.HTTP_LISTEN_PORT + '...');
 });*/
 
-var httpsServer = https.createServer(options, app).listen(process.env.HTTPS_LISTEN_PORT, "easel4.cs.utsarr.net", function () {
+var httpsServer = https.createServer(options, app).listen(process.env.HTTPS_LISTEN_PORT, "10.100.201.3 ", function () {
 	console.log('API server is listening on port ' + process.env.HTTPS_LISTEN_PORT + '...');
     logger.info('API server is listening on port ' + process.env.HTTPS_LISTEN_PORT + '...');
 });
