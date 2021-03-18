@@ -4,8 +4,8 @@
 		,"title":"CS 4783 Spring 2021 Project"
 		,"version":"1.0.0" 
 	}
-	,"host":"localhost:3000"
-	,"configUrl":"localhost:3000/swagger.json"
+	,"host":"easel4.cs.utsarr.net:12035"
+	,"configUrl":"easel4.cs.utsarr.net:12035/swagger.json"
 	,"basePath":""
 	,"produces": [
 		"application/json" 
