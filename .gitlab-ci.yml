@@ -1,0 +1,22 @@
+---
+build-job:
+  stage: build
+  script:
+    - echo "Building project..."
+
+unit-test-job:
+  stage: test
+  script:
+    - echo "Running unit tests..."
+
+curl-test-job:
+  stage: test
+  script:
+    - echo "Running CURL tests..."
+
+deploy-job:
+  stage: deploy
+  script:
+    - echo "if we made it to this point then all tests passed OR none yet exist :)"
+    - echo "Deploying to class server..."
+...
