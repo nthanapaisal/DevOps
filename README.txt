@@ -32,5 +32,10 @@ DB setup:
 	https://expressjs.com/en/api.html#req
 
 SSH:
+	ssh-keygen
 	youtube.com/watch?v=mNtQ55quG9M
+	eval $(ssh-agent -s)
+	ssh-add <directory to private SSH key>
 
+connect:
+	https://10.100.201.3:12036/hello
