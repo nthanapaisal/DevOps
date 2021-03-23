@@ -31,3 +31,6 @@ DB setup:
 	https://flaviocopes.com/express-get-query-variables/
 	https://expressjs.com/en/api.html#req
 
+SSH:
+	youtube.com/watch?v=mNtQ55quG9M
+
