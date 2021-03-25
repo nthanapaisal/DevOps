@@ -34,7 +34,7 @@ DB setup:
 SSH: (do it step by step)
 	keypairs gen -> gitlab https://www.youtube.com/watch?v=svRWcx7dT8g
 	virtual server: 
-	1. ssh-keygen -> enter file name (or enter for default)-> create new passphrase specifically for that keypairs 
+	1. ssh-keygen -> enter file name (or enter for default)-> skip passphrase specifically for that keypairs by enter
 	2. cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys (this helps ssh in the virtual server find your public keys)
 	3. eval $(ssh-agent -s)
 		ssh-add <directory to private SSH key>
@@ -45,7 +45,7 @@ SSH: (do it step by step)
 		explaination: youtube.com/watch?v=mNtQ55quG9M
 		1. put your private key that you have generated in virtual machine into ~/.ssh of local
 		2. eval $(ssh-agent -s)
-			ssh-add <directory to private SSH key> -> this will ask for passphrase you have created up top^
+			ssh-add <directory to private SSH key> 
 			chmod 700 .ssh/
 		3. ssh -i ~/.ssh/privatekeyfile abc123@10.100.201.3
 	
