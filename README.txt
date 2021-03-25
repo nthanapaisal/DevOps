@@ -32,22 +32,24 @@ DB setup:
 	https://expressjs.com/en/api.html#req
 
 SSH: (do it step by step)
-	keypairs gen -> gitlab https://www.youtube.com/watch?v=svRWcx7dT8g
-	virtual server: 
-	1. ssh-keygen -> enter file name (or enter for default)-> skip passphrase specifically for that keypairs by enter
-	2. cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys (this helps ssh in the virtual server find your public keys)
-	3. eval $(ssh-agent -s)
-		ssh-add <directory to private SSH key>
-		chmod 700 .ssh/
-	gitlab:
-		add public key .pub to your gitlab account
-	ssh using private key:
-		explaination: youtube.com/watch?v=mNtQ55quG9M
-		1. put your private key that you have generated in virtual machine into ~/.ssh of local
-		2. eval $(ssh-agent -s)
-			ssh-add <directory to private SSH key> 
-			chmod 700 .ssh/
-		3. ssh -i ~/.ssh/privatekeyfile abc123@10.100.201.3
+    keypairs gen -> gitlab https://www.youtube.com/watch?v=svRWcx7dT8g
+    virtual server: 
+    1. ssh-keygen -> enter file name (press enter)-> skip passphrase specifically for that keypairs (press enter twice)
+    2. cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys (this helps ssh in the virtual server find your public keys)
+    3. (this is not required but this will fix ssh issue if doesnt work)
+        eval $(ssh-agent -s) 
+        ssh-add <directory to private SSH key>
+        chmod 700 .ssh/
+    gitlab:
+        add public key .pub to your gitlab account
+    ssh using private key:
+        explaination: youtube.com/watch?v=mNtQ55quG9M
+        1. put your private key that you have generated in virtual machine into ~/.ssh of local
+        2. (this is not required but this will fix ssh issue if doesnt work)
+            eval $(ssh-agent -s)
+            ssh-add <directory to private SSH key> 
+            chmod 700 .ssh/
+        3. ssh -i ~/.ssh/privatekeyfile abc123@10.100.201.3
 	
 connect:
 	https://10.100.201.3:12036/hello
