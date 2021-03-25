@@ -3,6 +3,7 @@ build-job:
   stage: build
   script:
     - echo "Building project..."
+    - npm install
 
 unit-test-job:
   stage: test
@@ -17,6 +18,12 @@ curl-test-job:
 deploy-job:
   stage: deploy
   script:
-    - echo "if we made it to this point then all tests passed OR none yet exist :)"
     - echo "Deploying to class server..."
+    - echo "At this point, will ssh and pull"
+    - echo $private_key_nikki > ./private_key
+    # - echo $private_key_anna > ./private_key
+    - chmod 400 ./private_key
+    - ssh -i ./private_key iaf873@10.100.201.3 "cd ~/cs4783DevOps; git pull; pm2 reload all"
+    # - ssh -i ./private_key kvk745@10.100.201.3 "cd ~/cs4783-project-spring2021; git pull; pm2 reload all"
+    - rm ./private_key
 ...
