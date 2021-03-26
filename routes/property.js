@@ -9,7 +9,7 @@ const { validateAPIKey } = require('../misc/accessControl');
 
 const logger = utilities.getLogger();
 
-var jsonParser = bodyParser.json()
+var jsonParser = bodyParser.json();
 
 // I like to log who is calling the web services
 router.use(function (req, res, next) {
@@ -29,13 +29,20 @@ router.get('/',
 
 router.post('/',
   async function(request, response) {
-        
-        if(accessControl.validateAPIKey(request) == false){
+
+        let key = request.headers.api_key; 
+        let address = request.query.address;
+        let city = request.query.city;
+        let state = request.query.state;
+        let zip = request.query.zip;
+
+        if(accessControl.validateAPIKey(key) == false){
             logger.info("error");  
             utilities.sendResponse(response, 401, "Invalid API key"); 
         }
-        else if (validateInputs.validatePost(request, response) == false){
+        else if (validateInputs.validatePost(address, city, state, zip) != 0){
             console.log("POST Request Failed.");
+            validateInputs.sendResponse(validateInputs.validatePost(address, city, state, zip), response);
         }
         else{
             const result = await gateway.insert(request);
@@ -62,8 +69,9 @@ router.get('/:propertyId',
 
 router.delete('/:propertyId',
   async function(request, response) {
-        //console.log(request.params)
-        if(accessControl.validateAPIKey(request) == false){
+
+        let key = request.headers.api_key; 
+        if(accessControl.validateAPIKey(key) == false){
             logger.info("error");  
             utilities.sendResponse(response, 401, "Invalid API key"); 
         }
@@ -86,10 +94,9 @@ router.delete('/:propertyId',
 router.put('/:propertyId',
   jsonParser,
   async function(request, response) {
-        //get propertyId from the path
 
-
-        if(accessControl.validateAPIKey(request) == false){
+        let key = request.headers.api_key; 
+        if(accessControl.validateAPIKey(key) == false){
             logger.info("error");  
             utilities.sendResponse(response, 401, "Invalid API key"); 
         }
@@ -101,8 +108,9 @@ router.put('/:propertyId',
                 columnsToBeUpdated[key] = value;
             }		    
 
-            if (validateInputs.validatePut(columnsToBeUpdated, request, response) == false){
+            if (validateInputs.validatePut(columnsToBeUpdated) != 0){
                 console.log("PUT Request Failed.");
+                validateInputs.sendResponse(validateInputs.validatePut(columnsToBeUpdated));
             }
             else{
                 const result = await gateway.update(columnsToBeUpdated, request);

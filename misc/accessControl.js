@@ -1,6 +1,6 @@
 module.exports = {
-	validateAPIKey: (request) => {
-        let key = request.headers.api_key;   
+	validateAPIKey: (key) => {
+          
         //base case
         if(key == null || key.length < 1){
             return false;

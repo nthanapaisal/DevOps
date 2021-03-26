@@ -12,6 +12,9 @@ npm i
 npm install --save cors
 npm install --save body-parser
 npm install mysql
+npm i --global mocha
+npm i --save-dev chai
+npm install --save isomorphic-fetch 
 </p>
 
 #### Running
