@@ -27,6 +27,6 @@ deploy-job:
     - chmod 400 ./private_key
     - cat ./private_key
     # - ssh -i ./private_key iaf873@10.100.201.3 "cd ~/cs4783DevOps; git pull; pm2 stop 0"
-    # - ssh -i ./private_key kvk745@10.100.201.3 "cd ~/cs4783-project-spring2021; git pull; pm2 reload all"
+    - ssh -i ./private_key kvk745@10.100.201.3 "cd ~/cs4783-project-spring2021; git pull; pm2 reload all"
     - rm ./private_key
 ...
