@@ -42,7 +42,7 @@ router.post('/',
         }
         else if (validateInputs.validatePost(address, city, state, zip) != 0){
             console.log("POST Request Failed.");
-            validateInputs.sendResponse(validateInputs.validatePost(address, city, state, zip), response);
+            validateInputs.sendResponseMessage(validateInputs.validatePost(address, city, state, zip), response);
         }
         else{
             const result = await gateway.insert(request);
@@ -110,12 +110,18 @@ router.put('/:propertyId',
 
             if (validateInputs.validatePut(columnsToBeUpdated) != 0){
                 console.log("PUT Request Failed.");
-                validateInputs.sendResponse(validateInputs.validatePut(columnsToBeUpdated));
+                validateInputs.sendResponseMessage(validateInputs.validatePut(columnsToBeUpdated), response);
             }
             else{
-                const result = await gateway.update(columnsToBeUpdated, request);
-                logger.info("success");
-                utilities.sendResponse(response, 200, "Updated property: " + result);
+                try{
+                    const result = await gateway.update(columnsToBeUpdated, request);
+                    logger.info("success");
+                    utilities.sendResponse(response, 200, "Updated property: " + result);
+                }
+                catch {
+                    logger.info("error");
+                    utilities.sendResponse(response, 404,"Error in deleting property.");
+                }
             }
         }
     }

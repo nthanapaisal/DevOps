@@ -25,7 +25,7 @@ module.exports = {
         }
         return parameter;
     },
-    sendResponse: (parameter, response) => {
+    sendResponseMessage: (parameter, response) => {
         switch(parameter) {
             case 1:
                 logger.info("error"); 
