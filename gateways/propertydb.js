@@ -39,7 +39,7 @@ module.exports = {
 
 	},
 	fetchProperty: (request) => {
-	 	let id = request.query.propertyId;
+	 	let id = request.params.propertyId;
 		let sql = `SELECT * FROM property WHERE property_id = ?`; 
 		
 		return new Promise((resolve, reject)=>{

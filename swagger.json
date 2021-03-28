@@ -118,7 +118,7 @@
 				"parameters":[ 
 					{
 						"name":"propertyId",
-						"in":"query",
+						"in":"path",
 						"description":"id of property",
 						"type": "integer",
 						"required": true
