@@ -1,5 +1,8 @@
 Anna Arroyo and Nikki Thanapaisal
 
+package.json:
+    https://docs.npmjs.com/cli/v7/configuring-npm/package-json#dependencies 
+    
 Gitlab set up:
 	GIT_SSL_NO_VERIFY=true git clone http://easel3.cs.utsarr.net/iaf873/cs4783-project-spring2021.git
 
@@ -50,7 +53,15 @@ SSH: (do it step by step)
             ssh-add <directory to private SSH key> 
             chmod 700 .ssh/
         3. ssh -i ~/.ssh/privatekeyfile abc123@10.100.201.3
-	
+    ssh config file:
+        add a ~/.ssh/config entry
+        here is mine
+            Host easel3.cs.utsarr.net
+            User git
+            Preferredauthentications publickey
+            IdentityFile ~/.ssh/fru574_gitlab
+        that is what is in my .ssh/config file for my student account fru574 on easel4
+        https://linuxize.com/post/using-the-ssh-config-file/
 connect:
 	https://10.100.201.3:12036/hello
 	pm2 start start.sh
