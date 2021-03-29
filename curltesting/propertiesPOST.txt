@@ -5,9 +5,9 @@ Content-Type: application/json; charset=utf-8
 Access-Control-Allow-Methods: *
 Access-Control-Allow-Headers: Content-Type, api_key, Authorization
 Content-Length: 38
-ETag: W/"26-6eQ9Qa1ASVb7XnbJwmk+YErgAh8"
-Date: Mon, 29 Mar 2021 21:07:51 GMT
+ETag: W/"26-RAYfGeBKtSnsCq0HIOuOaL3b+o4"
+Date: Mon, 29 Mar 2021 21:28:32 GMT
 Connection: keep-alive
 Keep-Alive: timeout=5
 
-{"message":"Inserted property Id: 76"}
+{"message":"Inserted property Id: 78"}

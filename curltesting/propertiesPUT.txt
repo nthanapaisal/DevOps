@@ -4,10 +4,10 @@ Access-Control-Allow-Origin: *
 Content-Type: application/json; charset=utf-8
 Access-Control-Allow-Methods: *
 Access-Control-Allow-Headers: Content-Type, api_key, Authorization
-Content-Length: 33
-ETag: W/"21-Gq5hfJiU+2nTCWYa2iaTfX4Qt9E"
-Date: Mon, 29 Mar 2021 21:07:51 GMT
+Content-Length: 34
+ETag: W/"22-79E50mZuiGx9RNjnaRocn2A3dL8"
+Date: Mon, 29 Mar 2021 21:28:33 GMT
 Connection: keep-alive
 Keep-Alive: timeout=5
 
-{"message":"Updated property: 2"}
+{"message":"Updated property: 78"}
