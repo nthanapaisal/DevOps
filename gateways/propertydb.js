@@ -62,10 +62,6 @@ module.exports = {
 	},
 	insert: (request) => {
 		let id;
-		if(request.query.property_id != null){
-			id = request.query.property_id;
-		}
-		console.log("id? " + id);
 		let address = request.query.address;
 		let city = request.query.city;
 		let state = request.query.state;

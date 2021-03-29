@@ -1,6 +1,20 @@
-#run this from the top level of the project for it to work
+#Run: run this from the top level of the project for it to work
+#myfunc(): this is to get most recent record so we don't have to manually edit DELETE
+
 #!/bin/bash
-########################## hello end point
+
+myfunc(){
+    curl --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties' \
+        -H 'accept: application/json' > ./curltesting/ExpectedFiles/listproperties.txt  
+
+    recordNum=$(cat ./curltesting/ExpectedFiles/listproperties.txt | \
+        grep -P '"property_id":\d+' --only-matching | tail -1 | grep -P '\d+' --only-matching)
+
+    return $recordNum
+}
+
+
+########################## hello end point ##########################
 curl --silent -X 'GET' \
   'https://10.100.201.3:12036/hello' \
   -H 'accept: application/json' --insecure > ./curltesting/hello.txt
@@ -13,8 +27,9 @@ else
   exit 1
 fi
 
-########################## get prop
-curl -I --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties' > ./curltesting/properties.txt
+########################## get prop ##########################
+curl -I --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties' \
+-H 'accept: application/json' > ./curltesting/properties.txt
 if [[ $(head -1 ./curltesting/ExpectedFiles/get_properties_expected.txt) == $(head -1 ./curltesting/properties.txt) ]]; then
   #pass
   echo "GET Properties: Pass"
@@ -24,8 +39,9 @@ else
   exit 1
 fi
 
-########################## get id 1
-curl -I --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties/1' > ./curltesting/propertiesid.txt
+########################## get id 1 ##########################
+curl -I --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties/1' \
+-H 'accept: application/json' > ./curltesting/propertiesid.txt
 if [[ $(head -1 ./curltesting/ExpectedFiles/get_propertiesid_expected.txt) == $(head -1 ./curltesting/propertiesid.txt) ]]; then
   #pass
   echo "GET Properties/Id: Pass"
@@ -35,9 +51,10 @@ else
   exit 1
 fi
 
-########################## put
+########################## post ##########################
 curl -I --insecure --silent -X 'POST' \
  'https://10.100.201.3:12036/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
+ -H 'accept: application/json' \
  -H 'api_key: cs4783ftw!' > ./curltesting/propertiesPOST.txt
 if [[ $(head -1 ./curltesting/ExpectedFiles/post_properties_expected.txt) == $(head -1 ./curltesting/propertiesPOST.txt) ]]; then
   #pass
@@ -48,22 +65,71 @@ else
   exit 1
 fi
 
-########################## del
-curl -I --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/31' \
--H 'api_key: cs4783ftw!' > ./curltesting/propertiesDEL.txt
-if [[ $(head -1 ./curltesting/ExpectedFiles/del_properties_expected.txt) == $(head -1 ./curltesting/propertiesDEL.txt) ]]; then
+
+##########################  before put/delete I will pull out the record that is recently added. ##########################
+myfunc
+echo "Getting the most recent id:"${recordNum}""
+
+
+
+########################## put ##########################
+curl --insecure --silent -X 'PUT' \
+  'https://10.100.201.3:12036/properties/'${recordNum}'' \
+  -H 'accept: application/json' \
+  -H 'api_key: cs4783ftw!' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "address": "Turtleland",
+  "city": "Valhiem",
+  "state": "VA",
+  "zip": "12345"
+  }' > ./curltesting/propertiesPUT.txt
+if [[ $(head -1 ./curltesting/ExpectedFiles/put_properties_expected.txt) == $(head -1 ./curltesting/propertiesPUT.txt) ]]; then
   #pass
-  echo "DELETE Properties/Id: Pass"
+  echo "PUT NonExisting Properties/Id: Pass"
 else
   #fail
-  echo "DEL Properties/Id: Fail"
+  echo "PUT NonExisting Properties/Id: Fail"
   exit 1
 fi
 
-########################## post
-#curl --insecure --silent -X 'POST' \
- #'https://10.100.201.3:12036/properties?property_id=100&address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
- #-H 'api_key: cs4783ftw!'
-########################## non exisiting
+########################## del ##########################
+#curl -I --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/'${recordNum}'' \
+#-H 'accept: application/json' \
+#-H 'api_key: cs4783ftw!' > ./curltesting/propertiesDEL.txt
+#if [[ $(head -1 ./curltesting/ExpectedFiles/del_properties_expected.txt) == $(head -1 ./curltesting/propertiesDEL.txt) ]]; then
+  #pass
+  #echo "DELETE Properties/Id: Pass"
+   
+#else
+  #fail
+  #echo "DEL Properties/Id: Fail"
+  #exit 1
+#fi
 
-########################## invalid api key
+
+########################## non exisiting ##########################
+curl -I --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties/0' \
+-H 'accept: application/json' > ./curltesting/nonExists.txt
+if [[ $(head -1 ./curltesting/ExpectedFiles/get_nonExists_expected.txt) == $(head -1 ./curltesting/nonExists.txt) ]]; then
+  #pass
+  echo "GET NonExisting Properties/Id: Pass"
+else
+  #fail
+  echo "GET NonExisting Properties/Id: Fail"
+  exit 1
+fi
+
+########################## invalid api key ##########################
+curl -I --insecure --silent -X 'POST' \
+ 'https://10.100.201.3:12036/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
+ -H 'accept: application/json' > ./curltesting/invalidApi.txt
+if [[ $(head -1 ./curltesting/ExpectedFiles/post_invalidApi_expected.txt) == $(head -1 ./curltesting/invalidApi.txt) ]]; then
+  #pass
+  echo "POST Properties: Pass"
+else
+  #fail
+  echo "POST Properties: Fail"
+  exit 1
+fi
+
