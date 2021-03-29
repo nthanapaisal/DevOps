@@ -30,25 +30,25 @@ fi
 ########################## get prop ##########################
 curl -I --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties' \
 -H 'accept: application/json' > ./curltesting/properties.txt
-if [[ $(head -1 ./curltesting/ExpectedFiles/get_properties_expected.txt) == "$(head -1 ./curltesting/properties.txt)" ]]; then
+if [[ $(head -1 ./curltesting/ExpectedFiles/get_properties_expected.txt) == $(head -1 ./curltesting/properties.txt) ]]; then
   #pass
   echo "GET Properties: Pass"
 else
   #fail
   echo "GET Properties: Fail"
-  #exit 1
+  exit 1
 fi
 
 ########################## get id 1 ##########################
 curl -I --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties/1' \
 -H 'accept: application/json' > ./curltesting/propertiesid.txt
-if [[ $(head -1 ./curltesting/ExpectedFiles/get_propertiesid_expected.txt) == "$(head -1 ./curltesting/propertiesid.txt)" ]]; then
+if [[ $(head -1 ./curltesting/ExpectedFiles/get_propertiesid_expected.txt) == $(head -1 ./curltesting/propertiesid.txt) ]]; then
   #pass
   echo "GET Properties/Id: Pass"
 else
   #fail
   echo "GET Properties/Id: Fail"
-  #exit 1
+  exit 1
 fi
 
 ########################## post ##########################
@@ -56,13 +56,13 @@ curl -I --insecure --silent -X 'POST' \
  'https://10.100.201.3:12036/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
  -H 'accept: application/json' \
  -H 'api_key: cs4783ftw!' > ./curltesting/propertiesPOST.txt
-if [[ $(head -1 ./curltesting/ExpectedFiles/post_properties_expected.txt) == "$(head -1 ./curltesting/propertiesPOST.txt)" ]]; then
+if [[ $(head -1 ./curltesting/ExpectedFiles/post_properties_expected.txt) == $(head -1 ./curltesting/propertiesPOST.txt) ]]; then
   #pass
   echo "POST Properties: Pass"
 else
   #fail
   echo "POST Properties: Fail"
-  #exit 1
+  exit 1
 fi
 
 
@@ -73,26 +73,24 @@ echo "Getting the most recent id:"${recordNum}""
 
 
 ########################## put ##########################
-#curl -I --insecure -X 'PUT' \
+curl -I --insecure --silent -X 'PUT' \
+  'https://10.100.201.3:12036/properties/2' \
+  -H 'accept: application/json' \
+  -H 'api_key: cs4783ftw!' > ./curltesting/propertiesPUT.txt
   #-d '{
   #"address": "Turtleland",
   #"city": "Valhiem",
   #"state": "VA",
   #"zip": "12345"
- # }' -D- -o/dev/null \
- # 'https://10.100.201.3:12036/properties/'${recordNum}'' \
-  #-H 'accept: application/json' \
-  #-H 'api_key: cs4783ftw!' \
- # -H 'Content-Type: application/json' \
-  # > ./curltesting/propertiesPUT.txt
-#if [[ $(head -1 ./curltesting/ExpectedFiles/put_properties_expected.txt) == $(head -1 ./curltesting/propertiesPUT.txt) ]]; then
+  #}'  > ./curltesting/propertiesPUT.txt
+if [[ $(head -1 ./curltesting/ExpectedFiles/put_properties_expected.txt) == $(head -1 ./curltesting/propertiesPUT.txt) ]]; then
   #pass
- # echo "PUT Properties/Id: Pass"
-#else
+  echo "PUT Properties/Id: Pass"
+else
   #fail
-  #echo "PUT Properties/Id: Fail"
+  echo "PUT Properties/Id: Fail"
   #exit 1
-#fi
+fi
 
 
 ########################## del ##########################
@@ -105,33 +103,60 @@ if [[ $(head -1 ./curltesting/ExpectedFiles/del_properties_expected.txt) == $(he
    
 else
   #fail
-  echo "DEL Properties/Id: Fail"
-  #exit 1
+  echo "DELETE Properties/Id: Fail"
+  exit 1
 fi
 
 
-########################## non exisiting ##########################
+########################## non exisiting GET ##########################
 curl -I --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties/0' \
--H 'accept: application/json' > ./curltesting/nonExists.txt
-if [[ $(head -1 ./curltesting/ExpectedFiles/get_nonExists_expected.txt) == $(head -1 ./curltesting/nonExists.txt) ]]; then
+-H 'accept: application/json' > ./curltesting/GETnonExists.txt
+if [[ $(head -1 ./curltesting/ExpectedFiles/get_nonExists_expected.txt) == $(head -1 ./curltesting/GETnonExists.txt) ]]; then
   #pass
   echo "GET NonExisting Properties/Id: Pass"
 else
   #fail
   echo "GET NonExisting Properties/Id: Fail"
-  #exit 1
+  exit 1
 fi
 
-########################## invalid api key ##########################
-curl -I --insecure --silent -X 'POST' \
- 'https://10.100.201.3:12036/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
- -H 'accept: application/json' > ./curltesting/invalidApi.txt
-if [[ $(head -1 ./curltesting/ExpectedFiles/post_invalidApi_expected.txt) == $(head -1 ./curltesting/invalidApi.txt) ]]; then
+########################## non exisiting DEL ##########################
+curl -I --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/0' \
+-H 'accept: application/json' \
+-H 'api_key: cs4783ftw!' > ./curltesting/DELnonExists.txt
+if [[ $(head -1 ./curltesting/ExpectedFiles/del_nonExists_expected.txt) == $(head -1 ./curltesting/DELnonExists.txt) ]]; then
   #pass
-  echo "POST Properties: Pass"
+  echo "DELETE NonExisting Properties/Id: Pass"
+   
 else
   #fail
-  echo "POST Properties: Fail"
-  #exit 1
+  echo "DELETE NonExisting Properties/Id: Fail"
+  exit 1
 fi
 
+
+########################## invalid api key POST ##########################
+curl -I --insecure --silent -X 'POST' \
+ 'https://10.100.201.3:12036/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
+ -H 'accept: application/json' > ./curltesting/POSTinvalidApi.txt
+if [[ $(head -1 ./curltesting/ExpectedFiles/post_invalidApi_expected.txt) == $(head -1 ./curltesting/POSTinvalidApi.txt) ]]; then
+  #pass
+  echo "POST Invalid API: Pass"
+else
+  #fail
+  echo "POST Invalid API: Fail"
+  exit 1
+fi
+
+########################## invalid api key DEL ##########################
+curl -I --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/2' \
+-H 'accept: application/json' > ./curltesting/DELinvalidApi.txt
+if [[ $(head -1 ./curltesting/ExpectedFiles/del_invalidApi_expected.txt) == $(head -1 ./curltesting/DELinvalidApi.txt) ]]; then
+  #pass
+  echo "DELETE Invalid API: Pass"
+   
+else
+  #fail
+  echo "DELETE Invalid API: Fail"
+  exit 1
+fi
