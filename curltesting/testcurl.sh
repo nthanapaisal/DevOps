@@ -30,7 +30,7 @@ fi
 ########################## get prop ##########################
 curl -I --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties' \
 -H 'accept: application/json' > ./curltesting/properties.txt
-if [[ $(head -n 1 ./curltesting/ExpectedFiles/get_properties_expected.txt) == $(head -n 1 ./curltesting/properties.txt) ]]; then
+if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/get_properties_expected.txt) <(head -n 1 ./curltesting/properties.txt)) ]]; then
   #pass
   echo "GET Properties: Pass"
 else
