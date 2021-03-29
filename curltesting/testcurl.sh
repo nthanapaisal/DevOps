@@ -73,39 +73,41 @@ echo "Getting the most recent id:"${recordNum}""
 
 
 ########################## put ##########################
-curl --insecure --silent -X 'PUT' \
-  'https://10.100.201.3:12036/properties/'${recordNum}'' \
-  -H 'accept: application/json' \
-  -H 'api_key: cs4783ftw!' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "address": "Turtleland",
-  "city": "Valhiem",
-  "state": "VA",
-  "zip": "12345"
-  }' > ./curltesting/propertiesPUT.txt
-if [[ $(head -1 ./curltesting/ExpectedFiles/put_properties_expected.txt) == $(head -1 ./curltesting/propertiesPUT.txt) ]]; then
+#curl -I --insecure -X 'PUT' \
+  #-d '{
+  #"address": "Turtleland",
+  #"city": "Valhiem",
+  #"state": "VA",
+  #"zip": "12345"
+ # }' -D- -o/dev/null \
+ # 'https://10.100.201.3:12036/properties/'${recordNum}'' \
+  #-H 'accept: application/json' \
+  #-H 'api_key: cs4783ftw!' \
+ # -H 'Content-Type: application/json' \
+  # > ./curltesting/propertiesPUT.txt
+#if [[ $(head -1 ./curltesting/ExpectedFiles/put_properties_expected.txt) == $(head -1 ./curltesting/propertiesPUT.txt) ]]; then
   #pass
-  echo "PUT NonExisting Properties/Id: Pass"
-else
-  #fail
-  echo "PUT NonExisting Properties/Id: Fail"
-  exit 1
-fi
-
-########################## del ##########################
-#curl -I --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/'${recordNum}'' \
-#-H 'accept: application/json' \
-#-H 'api_key: cs4783ftw!' > ./curltesting/propertiesDEL.txt
-#if [[ $(head -1 ./curltesting/ExpectedFiles/del_properties_expected.txt) == $(head -1 ./curltesting/propertiesDEL.txt) ]]; then
-  #pass
-  #echo "DELETE Properties/Id: Pass"
-   
+ # echo "PUT Properties/Id: Pass"
 #else
   #fail
-  #echo "DEL Properties/Id: Fail"
+  #echo "PUT Properties/Id: Fail"
   #exit 1
 #fi
+
+
+########################## del ##########################
+curl -I --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/'${recordNum}'' \
+-H 'accept: application/json' \
+-H 'api_key: cs4783ftw!' > ./curltesting/propertiesDEL.txt
+if [[ $(head -1 ./curltesting/ExpectedFiles/del_properties_expected.txt) == $(head -1 ./curltesting/propertiesDEL.txt) ]]; then
+  #pass
+  echo "DELETE Properties/Id: Pass"
+   
+else
+  #fail
+  echo "DEL Properties/Id: Fail"
+  exit 1
+fi
 
 
 ########################## non exisiting ##########################

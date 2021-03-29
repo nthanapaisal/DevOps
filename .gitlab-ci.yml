@@ -25,8 +25,8 @@ curl-test-job:
     - rm ./private_key
     - sleep 10
     - echo "Running CURL tests..."
-    #- chmod +x ./curltesting/testcurl.sh
-    #- ./curltesting/testcurl.sh
+    - chmod +x ./curltesting/testcurl.sh
+    - ./curltesting/testcurl.sh
 
 deploy-job:
   stage: deploy
