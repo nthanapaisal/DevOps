@@ -56,7 +56,7 @@ curl -i --insecure --silent -X 'POST' \
  'https://10.100.201.3:12036/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
  -H 'accept: application/json' \
  -H 'api_key: cs4783ftw!' > ./curltesting/propertiesPOST.txt
-if [[ $(head -n 1 ./curltesting/ExpectedFiles/post_properties_expected.txt) == $(head -n 1 ./curltesting/propertiesPOST.txt) ]]; then
+if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/post_properties_expected.txt) <(head -n 1 ./curltesting/propertiesPOST.txt)) ]]; then
   #pass
   echo "POST Properties: Pass"
 else
@@ -84,7 +84,7 @@ curl --insecure --silent -X 'PUT' \
   "state": "VA",
   "zip": "12345"
   }' -i > ./curltesting/propertiesPUT.txt
-if [[ $(head -n 1 ./curltesting/ExpectedFiles/put_properties_expected.txt) == $(head -n 1 ./curltesting/propertiesPUT.txt) ]]; then
+if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/put_properties_expected.txt) <(head -n 1 ./curltesting/propertiesPUT.txt)) ]]; then
   #pass
   echo "PUT Properties/Id: Pass"
 else
@@ -98,7 +98,7 @@ fi
 curl -i --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/'${recordNum}'' \
 -H 'accept: application/json' \
 -H 'api_key: cs4783ftw!' > ./curltesting/propertiesDEL.txt
-if [[ $(head -n 1 ./curltesting/ExpectedFiles/del_properties_expected.txt) == $(head -n 1 ./curltesting/propertiesDEL.txt) ]]; then
+if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/del_properties_expected.txt) <(head -n 1 ./curltesting/propertiesDEL.txt)) ]]; then
   #pass
   echo "DELETE Properties/Id: Pass"
    
@@ -112,7 +112,7 @@ fi
 ########################## non exisiting GET ##########################
 curl -i --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties/0' \
 -H 'accept: application/json' > ./curltesting/GETnonExists.txt
-if [[ $(head -n 1 ./curltesting/ExpectedFiles/get_nonExists_expected.txt) == $(head -n 1 ./curltesting/GETnonExists.txt) ]]; then
+if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/get_nonExists_expected.txt) <(head -n 1 ./curltesting/GETnonExists.txt)) ]]; then
   #pass
   echo "GET NonExisting Properties/Id: Pass"
 else
@@ -125,7 +125,7 @@ fi
 curl -i --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/0' \
 -H 'accept: application/json' \
 -H 'api_key: cs4783ftw!' > ./curltesting/DELnonExists.txt
-if [[ $(head -n 1 ./curltesting/ExpectedFiles/del_nonExists_expected.txt) == $(head -n 1 ./curltesting/DELnonExists.txt) ]]; then
+if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/del_nonExists_expected.txt) <(head -n 1 ./curltesting/DELnonExists.txt)) ]]; then
   #pass
   echo "DELETE NonExisting Properties/Id: Pass"
    
@@ -140,7 +140,7 @@ fi
 curl -i --insecure --silent -X 'POST' \
  'https://10.100.201.3:12036/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
  -H 'accept: application/json' > ./curltesting/POSTinvalidApi.txt
-if [[ $(head -n 1 ./curltesting/ExpectedFiles/post_invalidApi_expected.txt) == $(head -n 1 ./curltesting/POSTinvalidApi.txt) ]]; then
+if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/post_invalidApi_expected.txt) <(head -n 1 ./curltesting/POSTinvalidApi.txt)) ]]; then
   #pass
   echo "POST Invalid API: Pass"
 else
@@ -152,7 +152,7 @@ fi
 ########################## invalid api key DEL ##########################
 curl -i --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/2' \
 -H 'accept: application/json' > ./curltesting/DELinvalidApi.txt
-if [[ $(head -n 1 ./curltesting/ExpectedFiles/del_invalidApi_expected.txt) == $(head -n 1 ./curltesting/DELinvalidApi.txt) ]]; then
+if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/del_invalidApi_expected.txt) <(head -n 1 ./curltesting/DELinvalidApi.txt)) ]]; then
   #pass
   echo "DELETE Invalid API: Pass"
    
