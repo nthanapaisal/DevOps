@@ -42,7 +42,7 @@ fi
 ########################## get id 1 ##########################
 curl -i --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties/1' \
 -H 'accept: application/json' > ./curltesting/propertiesid.txt
-if [[ $(head -n 1 ./curltesting/ExpectedFiles/get_propertiesid_expected.txt) == $(head -n 1 ./curltesting/propertiesid.txt) ]]; then
+if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/get_propertiesid_expected.txt) <(head -n 1 ./curltesting/propertiesid.txt)) ]]; then
   #pass
   echo "GET Properties/Id: Pass"
 else
