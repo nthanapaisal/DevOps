@@ -1,9 +1,9 @@
 #Run: run this from the top level of the project for it to work
-#myfunc(): this is to get most recent record so we don't have to manually edit DELETE
 
 #!/bin/bash
 
 myfunc(){
+    #myfunc(): this is to get most recent record so we don't have to manually edit DELETE
     curl --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties' \
         -H 'accept: application/json' > ./curltesting/ExpectedFiles/listproperties.txt  
 
@@ -66,7 +66,7 @@ else
 fi
 
 
-##########################  before put/delete I will pull out the record that is recently added. ##########################
+####### before put/delete I will pull out the record that is recently added.#######
 myfunc
 echo "Getting the most recent id:"${recordNum}""
 
@@ -74,7 +74,7 @@ echo "Getting the most recent id:"${recordNum}""
 
 ########################## put ##########################
 curl --insecure --silent -X 'PUT' \
-  'https://10.100.201.3:12036/properties/2' \
+  'https://10.100.201.3:12036/properties/'${recordNum}'' \
   -H 'accept: application/json' \
   -H 'api_key: cs4783ftw!' \
   -H 'Content-Type: application/json' \
