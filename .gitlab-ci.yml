@@ -17,9 +17,11 @@ curl-test-job:
   script:
     - echo "Running CURL tests..."
     - npm install
+    - npm start start.sh
     - sleep 10
     - chmod +x ./curltesting/testcurl.sh
     - ./curltesting/testcurl.sh
+    - pm2 delete all
 
 deploy-job:
   stage: deploy
