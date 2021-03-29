@@ -30,7 +30,7 @@ fi
 ########################## get prop ##########################
 curl -I --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties' \
 -H 'accept: application/json' > ./curltesting/properties.txt
-if [[ $(head -1 ./curltesting/ExpectedFiles/get_properties_expected.txt) == $(head -1 ./curltesting/properties.txt) ]]; then
+if [[ $(head -1 ./curltesting/ExpectedFiles/get_properties_expected.txt) == "$(head -1 ./curltesting/properties.txt)" ]]; then
   #pass
   echo "GET Properties: Pass"
 else
@@ -42,7 +42,7 @@ fi
 ########################## get id 1 ##########################
 curl -I --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties/1' \
 -H 'accept: application/json' > ./curltesting/propertiesid.txt
-if [[ $(head -1 ./curltesting/ExpectedFiles/get_propertiesid_expected.txt) == $(head -1 ./curltesting/propertiesid.txt) ]]; then
+if [[ $(head -1 ./curltesting/ExpectedFiles/get_propertiesid_expected.txt) == "$(head -1 ./curltesting/propertiesid.txt)" ]]; then
   #pass
   echo "GET Properties/Id: Pass"
 else
@@ -56,7 +56,7 @@ curl -I --insecure --silent -X 'POST' \
  'https://10.100.201.3:12036/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
  -H 'accept: application/json' \
  -H 'api_key: cs4783ftw!' > ./curltesting/propertiesPOST.txt
-if [[ $(head -1 ./curltesting/ExpectedFiles/post_properties_expected.txt) == $(head -1 ./curltesting/propertiesPOST.txt) ]]; then
+if [[ $(head -1 ./curltesting/ExpectedFiles/post_properties_expected.txt) == "$(head -1 ./curltesting/propertiesPOST.txt)" ]]; then
   #pass
   echo "POST Properties: Pass"
 else
