@@ -40,7 +40,7 @@ else
 fi
 
 ########################## get id 1 ##########################
-curl -I --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties/1' \
+curl -i --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties/1' \
 -H 'accept: application/json' > ./curltesting/propertiesid.txt
 if [[ $(head -1 ./curltesting/ExpectedFiles/get_propertiesid_expected.txt) == $(head -1 ./curltesting/propertiesid.txt) ]]; then
   #pass
@@ -52,7 +52,7 @@ else
 fi
 
 ########################## post ##########################
-curl -I --insecure --silent -X 'POST' \
+curl -i --insecure --silent -X 'POST' \
  'https://10.100.201.3:12036/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
  -H 'accept: application/json' \
  -H 'api_key: cs4783ftw!' > ./curltesting/propertiesPOST.txt
@@ -73,16 +73,17 @@ echo "Getting the most recent id:"${recordNum}""
 
 
 ########################## put ##########################
-curl -I --insecure --silent -X 'PUT' \
+curl --insecure --silent -X 'PUT' \
   'https://10.100.201.3:12036/properties/2' \
   -H 'accept: application/json' \
-  -H 'api_key: cs4783ftw!' > ./curltesting/propertiesPUT.txt
-  #-d '{
-  #"address": "Turtleland",
-  #"city": "Valhiem",
-  #"state": "VA",
-  #"zip": "12345"
-  #}'  > ./curltesting/propertiesPUT.txt
+  -H 'api_key: cs4783ftw!' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "address": "Turtleland",
+  "city": "Valhiem",
+  "state": "VA",
+  "zip": "12345"
+  }' -i > ./curltesting/propertiesPUT.txt
 if [[ $(head -1 ./curltesting/ExpectedFiles/put_properties_expected.txt) == $(head -1 ./curltesting/propertiesPUT.txt) ]]; then
   #pass
   echo "PUT Properties/Id: Pass"
@@ -94,7 +95,7 @@ fi
 
 
 ########################## del ##########################
-curl -I --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/'${recordNum}'' \
+curl -i --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/'${recordNum}'' \
 -H 'accept: application/json' \
 -H 'api_key: cs4783ftw!' > ./curltesting/propertiesDEL.txt
 if [[ $(head -1 ./curltesting/ExpectedFiles/del_properties_expected.txt) == $(head -1 ./curltesting/propertiesDEL.txt) ]]; then
@@ -109,7 +110,7 @@ fi
 
 
 ########################## non exisiting GET ##########################
-curl -I --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties/0' \
+curl -i --insecure --silent -X 'GET' 'https://10.100.201.3:12036/properties/0' \
 -H 'accept: application/json' > ./curltesting/GETnonExists.txt
 if [[ $(head -1 ./curltesting/ExpectedFiles/get_nonExists_expected.txt) == $(head -1 ./curltesting/GETnonExists.txt) ]]; then
   #pass
@@ -121,7 +122,7 @@ else
 fi
 
 ########################## non exisiting DEL ##########################
-curl -I --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/0' \
+curl -i --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/0' \
 -H 'accept: application/json' \
 -H 'api_key: cs4783ftw!' > ./curltesting/DELnonExists.txt
 if [[ $(head -1 ./curltesting/ExpectedFiles/del_nonExists_expected.txt) == $(head -1 ./curltesting/DELnonExists.txt) ]]; then
@@ -136,7 +137,7 @@ fi
 
 
 ########################## invalid api key POST ##########################
-curl -I --insecure --silent -X 'POST' \
+curl -i --insecure --silent -X 'POST' \
  'https://10.100.201.3:12036/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
  -H 'accept: application/json' > ./curltesting/POSTinvalidApi.txt
 if [[ $(head -1 ./curltesting/ExpectedFiles/post_invalidApi_expected.txt) == $(head -1 ./curltesting/POSTinvalidApi.txt) ]]; then
@@ -149,7 +150,7 @@ else
 fi
 
 ########################## invalid api key DEL ##########################
-curl -I --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/2' \
+curl -i --insecure --silent -X 'DELETE' 'https://10.100.201.3:12036/properties/2' \
 -H 'accept: application/json' > ./curltesting/DELinvalidApi.txt
 if [[ $(head -1 ./curltesting/ExpectedFiles/del_invalidApi_expected.txt) == $(head -1 ./curltesting/DELinvalidApi.txt) ]]; then
   #pass

@@ -6,7 +6,8 @@ Access-Control-Allow-Methods: *
 Access-Control-Allow-Headers: Content-Type, api_key, Authorization
 Content-Length: 190
 ETag: W/"be-5uR8js8SLeOkx5sYtFOlwLI1vv0"
-Date: Mon, 29 Mar 2021 07:06:15 GMT
+Date: Mon, 29 Mar 2021 21:07:50 GMT
 Connection: keep-alive
 Keep-Alive: timeout=5
 
+[{"property_id":1,"address":"777 I changed the Address","city":"San Antonio","state":"TX","zip":"78249","last_modified":"2021-03-29T06:05:20.000Z","date_created":"2021-03-28T22:03:46.000Z"}]

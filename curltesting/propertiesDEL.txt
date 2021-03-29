@@ -5,8 +5,9 @@ Content-Type: application/json; charset=utf-8
 Access-Control-Allow-Methods: *
 Access-Control-Allow-Headers: Content-Type, api_key, Authorization
 Content-Length: 34
-ETag: W/"22-9umkCsQdowiS9DGmWPzJfHcKNwk"
-Date: Mon, 29 Mar 2021 07:06:16 GMT
+ETag: W/"22-yQcHqMCujkPqmH3X6IVxlwa8j+c"
+Date: Mon, 29 Mar 2021 21:07:52 GMT
 Connection: keep-alive
 Keep-Alive: timeout=5
 
+{"message":"Deleted property: 76"}

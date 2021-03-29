@@ -6,7 +6,8 @@ Access-Control-Allow-Methods: *
 Access-Control-Allow-Headers: Content-Type, api_key, Authorization
 Content-Length: 43
 ETag: W/"2b-UfXJ755/4gZD5iDXKsohruI5G1Y"
-Date: Mon, 29 Mar 2021 07:06:17 GMT
+Date: Mon, 29 Mar 2021 21:07:52 GMT
 Connection: keep-alive
 Keep-Alive: timeout=5
 
+{"message":"Deleting an invalid property."}
