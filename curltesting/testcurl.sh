@@ -1,6 +1,6 @@
+#!/bin/bash
 #Run: run this from the top level of the project for it to work
 
-#!/bin/bash
 
 myfunc(){
     #myfunc(): this is to get most recent record so we don't have to manually edit DELETE
