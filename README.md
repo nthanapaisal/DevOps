@@ -9,11 +9,17 @@ HTTPS_LISTEN_PORT=3000
 #### Building
 <p>
 npm i
+<br />
 npm install --save cors
+<br />
 npm install --save body-parser
+<br />
 npm install mysql
+<br />
 npm i --global mocha
+<br />
 npm i --save-dev chai
+<br />
 npm install --save isomorphic-fetch 
 </p>
 
