@@ -70,3 +70,37 @@ connect:
 Security testing:
 	OWASP ZAP
 	OWASP Mutillidae 
+
+
+Docker: 
+        https://www.youtube.com/watch?v=JSLpG_spOBM
+        https://www.docker.com/101-tutorial
+        https://docker-curriculum.com/
+    Windows:  
+        https://docs.docker.com/docker-for-windows/install/
+        install WSL -> pick linux distributor -> change WSL version to 2 -> install docker normally
+    Commands:
+        create: docker run -dit ubuntu:latest
+        start: docker start id
+        stop: docker stop id
+        remove: docker rm -f id
+        Show containers: docker ps
+        Show all stopped/running container(not remove): docker pw -a
+        Show images: docker images
+        Show full ID: docker inspect --format="{{.Id}}" container_name
+        run bash in docker container: docker exec -it containerIDshort bash
+        create new image with exisitng container that has generic ubuntu image: docker commit id newname
+        tagging: docker tag localImageName dockerhub/link -> docker login -> docker push dockerhub/link
+        build: docker build .
+        dockerfile:
+            https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+        Volume: 
+            https://phoenixnap.com/kb/docker-volumes
+            create: docker volume create name
+            list: docker volume list
+            delete: docker volume rm name
+            info: docker inspect name
+            delete all volume(dangerous): docker volume prune 
+            create container and connect to volume: docker run -dit --mount souce=VolumneName, destination=/VolumneName imageName
+            *you can mount volume to multilple containers, even if containers are gone, volume will be ok!
+            *you can also mount host dir as a volume
