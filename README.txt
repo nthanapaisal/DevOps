@@ -91,7 +91,8 @@ Docker:
         run bash in docker container: docker exec -it containerIDshort bash
         create new image with exisitng container that has generic ubuntu image: docker commit id newname
         tagging: docker tag localImageName dockerhub/link -> docker login -> docker push dockerhub/link
-        build: docker build .
+        build with dockerfile: docker build . -t newnameofimage
+        *after build image with docker file you can run it
         dockerfile:
             https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
         Volume: 
@@ -104,3 +105,9 @@ Docker:
             create container and connect to volume: docker run -dit --mount souce=VolumneName, destination=/VolumneName imageName
             *you can mount volume to multilple containers, even if containers are gone, volume will be ok!
             *you can also mount host dir as a volume
+        see container logs: docker logs id
+        DB: 
+            docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=hello --mount source=db,destination=/var/lib/mysql mariadb
+            *you can shell into mariadb
+        prune images: docker system prune -a
+        
