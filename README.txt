@@ -112,6 +112,8 @@ Docker:
             *specifice in dockerfile if you have db config ready to copy it over
         prune everything except volumes: docker system prune -a
         compose:
-            docker-compose up
-
-        
+            https://docs.docker.com/compose/
+            docker-compose up -d
+            docker-compose down
+        docker secret:
+            https://docs.docker.com/engine/swarm/secrets/
