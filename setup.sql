@@ -19,5 +19,5 @@ CREATE TABLE IF NOT EXISTS `property` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
--- 2021-04-01 00:18:08
+/*make sure your API connect db not as root */
+GRANT SELECT,UPDATE,DELETE,INSERT on cs4783_fru574.* to `fru574`@`%` identified by 'secretPassword';

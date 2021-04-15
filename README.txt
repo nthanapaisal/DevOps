@@ -109,5 +109,9 @@ Docker:
         DB: 
             docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=hello --mount source=db,destination=/var/lib/mysql mariadb
             *you can shell into mariadb
-        prune images: docker system prune -a
+            *specifice in dockerfile if you have db config ready to copy it over
+        prune everything except volumes: docker system prune -a
+        compose:
+            docker-compose up
+
         

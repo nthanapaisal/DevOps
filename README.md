@@ -3,7 +3,7 @@
 server.js expects a .env file. create a file called ".env" that contains:
 <br />
 HTTP_LISTEN_PORT=8080
-HTTPS_LISTEN_PORT=3000
+HTTPS_LISTEN_PORT=12036
 </p>
 
 #### Building

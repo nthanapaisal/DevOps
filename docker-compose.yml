@@ -1,0 +1,16 @@
+version: "3.9"
+volumes:
+    iaf873-db-vol: {}
+services:
+    iaf873-api:
+        build:
+            context: .
+            dockerfile: Dockerfile_api
+        ports:
+            - "12036:12036"
+    iaf873-db:
+        build:
+            context: .
+            dockerfile: Dockerfile_db
+        volumes:
+            - iaf873-db-vol:/var/lib/mysql
