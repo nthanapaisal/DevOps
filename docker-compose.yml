@@ -2,15 +2,20 @@ version: "3.9"
 volumes:
     iaf873-db-vol: {}
 services:
-    iaf873-api:
-        build:
-            context: .
-            dockerfile: Dockerfile_api
-        ports:
-            - "12036:12036"
     iaf873-db:
         build:
             context: .
             dockerfile: Dockerfile_db
+        ports:
+            - "3306:3306"
         volumes:
             - iaf873-db-vol:/var/lib/mysql
+    iaf873-api:
+        build:
+            context: .
+            dockerfile: Dockerfile_api
+        depends_on:
+            - "iaf873-db"
+        command: bash -c "/usr/wait-for-it.sh iaf873-db:3306 -- npm run dev"
+        ports:
+            - "12036:12036"
