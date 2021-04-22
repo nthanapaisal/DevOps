@@ -20,4 +20,4 @@ CREATE TABLE IF NOT EXISTS `property` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*make sure your API connect db not as root */
-GRANT SELECT,UPDATE,DELETE,INSERT on cs4783_iaf873.* to `fru574`@`%` identified by 'secretPassword';
+GRANT SELECT,UPDATE,DELETE,INSERT on cs4783_iaf873.* to `iaf873`@`%` identified by 'secretPassword';
