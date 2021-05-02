@@ -117,3 +117,60 @@ Docker:
             docker-compose down
         docker secret:
             https://docs.docker.com/engine/swarm/secrets/
+        docker stack rm name -> remove container, network, secret
+
+K8S:
+    https://www.youtube.com/watch?v=UE1UqcaSYpM istall on windows
+    https://kubernetes.io/docs/home/
+    https://www.youtube.com/watch?v=EUitQ8DaZW8&list=PLLasX02E8BPCrIhFrc_ZiINhbRkYMKdPT&index=4
+    https://www.youtube.com/watch?v=daVUONZqn88&list=PLLasX02E8BPCrIhFrc_ZiINhbRkYMKdPT&index=5
+    https://www.youtube.com/watch?v=mNK14yXIZF4&list=PLLasX02E8BPCrIhFrc_ZiINhbRkYMKdPT&index=6
+    https://www.youtube.com/watch?v=xL6lixC4D8Q&list=PLLasX02E8BPCrIhFrc_ZiINhbRkYMKdPT&index=7
+    https://www.youtube.com/watch?v=rDCWxkvPlAw&list=PLLasX02E8BPCrIhFrc_ZiINhbRkYMKdPT&index=8
+    https://www.youtube.com/watch?v=5irsAdKoEBU&list=PLLasX02E8BPCrIhFrc_ZiINhbRkYMKdPT&index=9
+    https://www.youtube.com/watch?v=zd8vYhrFXp4&list=PLLasX02E8BPCrIhFrc_ZiINhbRkYMKdPT&index=10
+    https://kubernetes.io/docs/tutorials/
+    https://www.youtube.com/watch?v=X48VuDVv0do
+    https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+    - install kubectl to the machine then add config file to ~/.kube
+    - get
+        kubectl get deployments 
+        kubectl get pods
+        kubectl get services
+    - make a deployment (my-ngix = docker image!!! replace my-ngix with image u want)(commands belows might have two different my-nginx meaning, one is the pod name and other is image name)
+        kubectl create deployment my-nginx --image=nginx
+        kubectl get deployments
+        kubectl get pods
+        * if 1 pod has mult continers, we may need to add container id with pod name 
+    - view logs
+        kubectl logs <podname>
+    - view in browser
+        kubectl describe pod <podname>
+        http://<pod ip address>
+        *if not working then it is still only visible in the cluster
+    - expose to deployement
+        kubectl expose deployment my-nginx --type="NodePort" --port 80 
+    - get ip address and exposed node port
+        kubectl get services
+        kubectl describe service <service name>
+    - using the node IP or cluster IP and exposed node port(can now curl to the exposed pod)
+        curl http://easel4.cs.utsarr.net:<exposed node port>
+    - delete the nodeport service
+        kubectl delete service <name>
+    - expose the pod to VPN
+        kubectl expose deployment my-ngix --type="loadBalancer" --port 80
+        kubectl get services
+        https//externalip:80
+    - view the deployment's label
+            kubectl describe deployment my-ngix
+            labels: app=my-nginx
+        - we can get pods and services associated with a specific label
+            kubectl get pod -l app=my-nginx
+            kubectl get services -l app=my-nginx
+    - scale the deployment
+        see the replica set
+            kubectl get rs 
+        scale the deployment
+            kubectl scale deployment my-nginx --replicas=4
+        watch the magic
+            kubectl get rs (do it a few times lol)
