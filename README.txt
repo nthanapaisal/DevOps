@@ -271,4 +271,10 @@ K8S:
                     targetPort: 80
                     nodePort: 31000
                     
+_____________________________________________________
+A5 -> looks in the document 
 
+delete -> pods,deployment,pvc,service
+
+kubectl create secret docker-registry iaf873-dockerhub --docker-server=docker.io --docker-username=username --docker-password=<access code> --docker-email=email@email.com
+kubectl get secret
