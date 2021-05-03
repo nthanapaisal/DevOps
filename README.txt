@@ -179,24 +179,96 @@ K8S:
         NodePort: Exposes the Service on each Node's IP at a static port (the NodePort). 
         A ClusterIP Service, to which the NodePort Service routes, is automatically created. 
         You'll be able to contact the NodePort Service, from outside the cluster, by requesting <NodeIP>:<NodePort>.
-    _______________________________________
+    -shell into the container
+        winpty kubectl exec -it -my-nginx-pod --bash
+    __________________________________
+    
     starting with empty name space
         kubectl create deployment my-nginx --image=nginx
         kubectl get pods
-        kubectl expose deployment my-ngix --type="NodePort" --port 80
+        kubectl expose deployment my-ngix --type="NodePort" --port 80 (correct one down below)
         kubectl get services
         **(doenst work kubectl delete service/serName or kubectl delete deployment/name)**
         - get all possible persistant volume
             kubectl get pv 
+
+        kubectl apply -f pvc.yaml
+        kubectl get pvc
         - claim by making yaml script (after making file, exe doing: kubectl apply -f pvc.yaml -> check by: kubectl get pvc)
-            kind: PersistentVolumeClaim             which kind of resources
+            kind: PersistentVolumeClaim             
             apiVersion: v1                          
             metadata:                               
-                name: my-nginx-pvc                  persistent volume name that make sense
+                name: my-nginx-pvc                  
             spec:
                 accessModes:
                     - ReadWriteOnce                 
                 resources:
                     requests:
-                        storage: 20M                >= this size
+                        storage: 20M                
                     storageClassName: "Manual"
+        - pod.yaml
+            kind: Pod
+            apiVersion: v1                          
+            metadata:                               
+                name: my-nginx-pod
+            spec:
+                volumes:
+                - names: my-vol
+                    persistentVolumeClaim:
+                        claimName: my-nginx-pvc 
+                containers:
+                - name: my-nginx-container
+                    image: nginx
+                    ports:
+                    - containerPort: 80
+                        name: "http-server"
+                    volumeMounts:
+                    - name: my-vol
+                        mountPath: /usr/share/nginx/html
+        - deploy.yaml
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+                name: nginx-deployment
+                labels:
+                    app: nginx
+            spec:
+                replicas: 1
+                selector:
+                    matchLabels:
+                        app: nginx
+                template:
+                    metadata:
+                        labels:
+                            app: nginx
+                spec:
+                    containers:
+                    - name: nginx
+                        image: nginx:1.14.2
+                        ports:
+                        - containerPort: 80
+        - yaml lint: yamllint.com
+    add service nodeport:
+        kubectl expose deployment nginx-deployment --type=NodePort --name=nginx-service
+        kubectl describe service/nginx-service
+        kubectl get services for the nodeport 
+        observer nodeport entry:
+            http://<node IP address>:<NodePort entry>
+            example: http://easel4.cs.utsarr.net/30674
+    ymal script to create k8s object
+        - service.yaml
+        apitVersion: v1
+        kind: Service
+        metadata:
+            name: my-nginx-service
+        spec:
+            type: NodePort
+            selector:
+                app: nginx
+            ports:
+                - protocol: TCP
+                    port: 80
+                    targetPort: 80
+                    nodePort: 31000
+                    
+

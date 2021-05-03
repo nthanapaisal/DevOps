@@ -1,0 +1,12 @@
+apitVersion: v1
+kind: Service
+metadata:
+  name: my-nginx-lb-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
