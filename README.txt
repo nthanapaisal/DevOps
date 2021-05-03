@@ -174,3 +174,29 @@ K8S:
             kubectl scale deployment my-nginx --replicas=4
         watch the magic
             kubectl get rs (do it a few times lol)
+    - a node is a physical machine that supporting the k8s cluster (like easel4) 
+        https://kubernetes.io/docs/concepts/services-networking/service/#nodeport
+        NodePort: Exposes the Service on each Node's IP at a static port (the NodePort). 
+        A ClusterIP Service, to which the NodePort Service routes, is automatically created. 
+        You'll be able to contact the NodePort Service, from outside the cluster, by requesting <NodeIP>:<NodePort>.
+    _______________________________________
+    starting with empty name space
+        kubectl create deployment my-nginx --image=nginx
+        kubectl get pods
+        kubectl expose deployment my-ngix --type="NodePort" --port 80
+        kubectl get services
+        **(doenst work kubectl delete service/serName or kubectl delete deployment/name)**
+        - get all possible persistant volume
+            kubectl get pv 
+        - claim by making yaml script (after making file, exe doing: kubectl apply -f pvc.yaml -> check by: kubectl get pvc)
+            kind: PersistentVolumeClaim             which kind of resources
+            apiVersion: v1                          
+            metadata:                               
+                name: my-nginx-pvc                  persistent volume name that make sense
+            spec:
+                accessModes:
+                    - ReadWriteOnce                 
+                resources:
+                    requests:
+                        storage: 20M                >= this size
+                    storageClassName: "Manual"
