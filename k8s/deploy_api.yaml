@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cs4782-spring2021-api-deploy
+  name: cs4783-spring2021-api-deploy
   labels:
-    app: cs4782-spring2021-api
+    app: cs4783-spring2021-api
 spec:kube
   replicas: 1
   selector:
     matchLabels:
-      app: cs4782-spring2021-api
+      app: cs4783-spring2021-api
   template:
     metadata:
       labels:
-        app: cs4782-spring2021-api
+        app: cs4783-spring2021-api
     spec:
       containers:
-      - name: cs4782-spring2021-api-con
+      - name: cs4783-spring2021-api-con
         image: nthanapaisal/cs4783-spring2021-api
         ports:
         - containerPort: 12036
