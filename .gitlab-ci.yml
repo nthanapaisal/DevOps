@@ -18,10 +18,10 @@ curl-test-job:
     - echo "Running CURL tests..."
     - npm install
     - docker version
-    #- docker-compose up
-    # sleep 10
-    #- chmod +x ./curltesting/testcurl.sh
-    #- ./curltesting/testcurl.sh
+    - docker-compose up
+    - sleep 10
+    - chmod +x ./curltesting/testcurl.sh
+    - ./curltesting/testcurl.sh
 
 deploy-job:
   stage: deploy
