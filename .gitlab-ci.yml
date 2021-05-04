@@ -22,12 +22,14 @@ curl-test-job:
     - docker ps -qf status=exited | xargs docker rm
     - docker image rm api_image
     - docker build -t api_image .
+    - sleep 10
     - docker run -p 2000:12036 -d api_image  
+    - sleep 20
     - docker ps
     #- ping localhost:2000
     #- curl -i 127.0.0.1:2000
-    #- chmod +x ./curltesting/testcurl.sh
-    #- ./curltesting/testcurl.sh
+    - chmod +x ./curltesting/testcurl.sh
+    - ./curltesting/testcurl.sh
     #- curl --silent -X 'GET' \
     #'https://127.0.0.1:2000/hello' \ 
     #-H 'accept:application/json' --insecure
