@@ -17,21 +17,8 @@ curl-test-job:
   stage: test
   script:
     - echo "Running CURL tests..."
-    - cat $K8S_CONFIG > ./k8sconfig
-    - npm install
-    #- kubectl get services --kubeconfig ./k8sconfig
-    - docker build -t annaarroyo/cs4783-spring2021-api-curl:latest -f Dockerfile_api .
-    - docker login --username=annaarroyo --password=$ANNA_DOCKERHUB_TOKEN
-    - docker push annaarroyo/cs4783-spring2021-api-curl:latest
-    - kubectl apply --kubeconfig ./k8sconfig -f ./k8s/deploy_api_curl.yaml
-    - sleep 10
-    - kubectl apply --kubeconfig ./k8sconfig -f ./k8s/service_api_lb_curl.yaml
-    - sleep 5
-    - kubectl get service cs4783-spring2021-api-lb_curl -o=jsonpath='{.status.loadBalancer.ingress[0].ip}' --kubeconfig ./k8sconfig > ip.sh
-    - chmod +x ./setCurlIP.sh
-    - ./setCurlIP.sh
-    - chmod +x ./curlIP.sh
-    - ./curlIP.sh
+    - docker build -t api_image
+    - docker docker run -p 8080:12036 -d api_image  
     - chmod +x ./curltesting/testcurl.sh
     - ./curltesting/testcurl.sh
 
