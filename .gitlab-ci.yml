@@ -18,7 +18,8 @@ curl-test-job:
   script:
     - echo "Running CURL tests..."
     #- docker build -t api_image .
-    - docker images
+    - docker system prune
+    - docker stop 10ff2f9df67e
     - docker rm 10ff2f9df67e
     #- docker run -p 2000:12036 -d api_image  
     #- ping localhost:2000
