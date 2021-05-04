@@ -23,9 +23,9 @@ curl-test-job:
     - docker build -t annaarroyo/cs4783-spring2021-api-curl:latest -f Dockerfile_api .
     - docker login --username=annaarroyo --password=$ANNA_DOCKERHUB_TOKEN
     - docker push annaarroyo/cs4783-spring2021-api-curl:latest
-    - kubectl apply -f ./k8s/deploy_api_curl.yml --kubeconfig ./k8sconfig
+    - kubectl apply --kubeconfig ./k8sconfig -f ./k8s/deploy_api_curl.yml
     - sleep 10
-    - kubectl apply -f ./k8s/service_api_lb_curl.yml --kubeconfig ./k8sconfig
+    - kubectl apply --kubeconfig ./k8sconfig -f ./k8s/service_api_lb_curl.yml
     - sleep 5
     - kubectl get service cs4783-spring2021-api-lb_curl -o=jsonpath='{.status.loadBalancer.ingress[0].ip}' --kubeconfig ./k8sconfig > ip.sh
     - bash { echo -n 'export CURL_IP='; cat ip.sh; } > curlIP.sh
