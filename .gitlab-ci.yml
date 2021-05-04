@@ -17,7 +17,7 @@ curl-test-job:
   stage: test
   script:
     - echo "Running CURL tests..."
-    - echo $K8S_CONFIG > ./k8sconfig
+    - cat $K8S_CONFIG > ./k8sconfig
     - npm install
     - kubectl get services --kubeconfig ./k8sconfig
     #- docker build -t annaarroyo/cs4783-spring2021-api-curl:latest -f Dockerfile_api .
