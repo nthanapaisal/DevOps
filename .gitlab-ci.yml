@@ -17,8 +17,9 @@ curl-test-job:
   stage: test
   script:
     - echo "Running CURL tests..."
-    - docker build -t api_image .
-    - docker ps
+    #- docker build -t api_image .
+    - docker images
+    - docker rm 10ff2f9df67e
     #- docker run -p 2000:12036 -d api_image  
     #- ping localhost:2000
     #- curl -i localhost:2000
