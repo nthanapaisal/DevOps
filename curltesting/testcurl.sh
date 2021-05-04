@@ -3,7 +3,7 @@
 
 myfunc(){
     #myfunc(): this is to get most recent record so we don't have to manually edit DELETE
-    curl --insecure --silent -X 'GET' 'https://localhost:8080/properties' \
+    curl --insecure --silent -X 'GET' 'https://localhost:2000/properties' \
         -H 'accept: application/json' > ./curltesting/ExpectedFiles/listproperties.txt  
 
     recordNum=$(cat ./curltesting/ExpectedFiles/listproperties.txt | \
@@ -15,7 +15,7 @@ myfunc(){
 
 ########################## hello end point ##########################
 curl --silent -X 'GET' \
-  'https://localhost:8080/hello' \
+  'https://localhost:2000/hello' \
   -H 'accept: application/json' --insecure > ./curltesting/hello.txt
 if grep -f ./curltesting/ExpectedFiles/get_hello_expected.txt ./curltesting/hello.txt > /dev/null; then
   #pass
@@ -27,7 +27,7 @@ else
 fi
 
 ########################## get prop ##########################
-curl -I --insecure --silent -X 'GET' 'https://localhost:8080/properties' \
+curl -I --insecure --silent -X 'GET' 'https://localhost:2000/properties' \
 -H 'accept: application/json' > ./curltesting/properties.txt
 if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/get_properties_expected.txt) <(head -n 1 ./curltesting/properties.txt)) ]]; then
   #pass
@@ -39,7 +39,7 @@ else
 fi
 
 ########################## get id 1 ##########################
-curl -i --insecure --silent -X 'GET' 'https://localhost:8080/properties/1' \
+curl -i --insecure --silent -X 'GET' 'https://localhost:2000/properties/1' \
 -H 'accept: application/json' > ./curltesting/propertiesid.txt
 if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/get_propertiesid_expected.txt) <(head -n 1 ./curltesting/propertiesid.txt)) ]]; then
   #pass
@@ -52,7 +52,7 @@ fi
 
 ########################## post ##########################
 curl -i --insecure --silent -X 'POST' \
- 'https://localhost:8080/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
+ 'https://localhost:2000/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
  -H 'accept: application/json' \
  -H 'api_key: cs4783ftw!' > ./curltesting/propertiesPOST.txt
 if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/post_properties_expected.txt) <(head -n 1 ./curltesting/propertiesPOST.txt)) ]]; then
@@ -73,7 +73,7 @@ echo "Getting the most recent id:"${recordNum}""
 
 ########################## put ##########################
 curl --insecure --silent -X 'PUT' \
-  'https://localhost:8080/properties/'${recordNum}'' \
+  'https://localhost:2000/properties/'${recordNum}'' \
   -H 'accept: application/json' \
   -H 'api_key: cs4783ftw!' \
   -H 'Content-Type: application/json' \
@@ -94,7 +94,7 @@ fi
 
 
 ########################## del ##########################
-curl -i --insecure --silent -X 'DELETE' 'https://localhost:8080/properties/'${recordNum}'' \
+curl -i --insecure --silent -X 'DELETE' 'https://localhost:2000/properties/'${recordNum}'' \
 -H 'accept: application/json' \
 -H 'api_key: cs4783ftw!' > ./curltesting/propertiesDEL.txt
 if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/del_properties_expected.txt) <(head -n 1 ./curltesting/propertiesDEL.txt)) ]]; then
@@ -109,7 +109,7 @@ fi
 
 
 ########################## non exisiting GET ##########################
-curl -i --insecure --silent -X 'GET' 'https://localhost:8080/properties/0' \
+curl -i --insecure --silent -X 'GET' 'https://localhost:2000/properties/0' \
 -H 'accept: application/json' > ./curltesting/GETnonExists.txt
 if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/get_nonExists_expected.txt) <(head -n 1 ./curltesting/GETnonExists.txt)) ]]; then
   #pass
@@ -121,7 +121,7 @@ else
 fi
 
 ########################## non exisiting DEL ##########################
-curl -i --insecure --silent -X 'DELETE' 'https://localhost:8080/properties/0' \
+curl -i --insecure --silent -X 'DELETE' 'https://localhost:2000/properties/0' \
 -H 'accept: application/json' \
 -H 'api_key: cs4783ftw!' > ./curltesting/DELnonExists.txt
 if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/del_nonExists_expected.txt) <(head -n 1 ./curltesting/DELnonExists.txt)) ]]; then
@@ -137,7 +137,7 @@ fi
 
 ########################## invalid api key POST ##########################
 curl -i --insecure --silent -X 'POST' \
- 'https://localhost:8080/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
+ 'https://localhost:2000/properties?address=New%20Address&city=San%20Antonio&state=TX&zip=11111' \
  -H 'accept: application/json' > ./curltesting/POSTinvalidApi.txt
 if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/post_invalidApi_expected.txt) <(head -n 1 ./curltesting/POSTinvalidApi.txt)) ]]; then
   #pass
@@ -149,7 +149,7 @@ else
 fi
 
 ########################## invalid api key DEL ##########################
-curl -i --insecure --silent -X 'DELETE' 'https://localhost:8080/properties/2' \
+curl -i --insecure --silent -X 'DELETE' 'https://localhost:2000/properties/2' \
 -H 'accept: application/json' > ./curltesting/DELinvalidApi.txt
 if [[ $(diff <(head -n 1 ./curltesting/ExpectedFiles/del_invalidApi_expected.txt) <(head -n 1 ./curltesting/DELinvalidApi.txt)) ]]; then
   #pass
