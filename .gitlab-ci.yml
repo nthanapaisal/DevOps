@@ -16,16 +16,16 @@ curl-test-job:
   stage: test
   script:
     - echo "Running CURL tests..."
-    - docker ps -qf status=running | xargs docker stop
-    - docker ps -qf status=exited | xargs docker rm
-    - docker image rm api_image
-    - docker build -t api_image .
-    - sleep 10
-    - docker run -p 2000:12036 -d api_image  
-    - sleep 20
-    - docker ps
-    - chmod +x ./curltesting/testcurl.sh
-    - ./curltesting/testcurl.sh
+    #- docker ps -qf status=running | xargs docker stop
+    #- docker ps -qf status=exited | xargs docker rm
+    #- docker image rm api_image
+    #- docker build -t api_image .
+    #- sleep 10
+    #- docker run -p 2000:12036 -d api_image  
+    #- sleep 20
+    #- docker ps
+    #- chmod +x ./curltesting/testcurl.sh
+    #- ./curltesting/testcurl.sh
 
 deploy-job:
   stage: deploy
