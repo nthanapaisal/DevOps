@@ -18,15 +18,15 @@ curl-test-job:
   script:
     - echo "Running CURL tests..."
     #- docker images
-    #- docker build -t api_image .
-    #- docker run -p 2000:12036 -d api_image  
+    - docker build -t api_image .
+    - docker run -p 2000:12036 -d api_image  
     #- ping localhost:2000
     #- curl -i 127.0.0.1:2000
     #- chmod +x ./curltesting/testcurl.sh
     #- ./curltesting/testcurl.sh
-    #- curl --silent -X 'GET' \
-     #'https://localhost:2000/hello' \ 
-     #-H 'accept:application/json' --insecure
+    - curl --silent -X 'GET' \
+     'https://localhost:2000/hello' \ 
+     -H 'accept:application/json' --insecure
     - docker ps -qf status=running | xargs docker stop
     - docker ps -qf status=exited | xargs docker rm
     - docker image rm api_image
