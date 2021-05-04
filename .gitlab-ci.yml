@@ -4,7 +4,6 @@ build-image:
   script:
     - echo "Building project..."
     - cat $API_CONFIG > ./.env
-    - cat ./.env
     - npm install
 
 unit-test-job:
@@ -22,6 +21,7 @@ curl-test-job:
     - npm install
     #- kubectl get services --kubeconfig ./k8sconfig
     - docker build -t annaarroyo/cs4783-spring2021-api-curl:latest -f Dockerfile_api .
+    - docker login --username=annaarroyo --password=$ANNA_DOCKERHUB_TOKEN
     - docker push annaarroyo/cs4783-spring2021-api-curl:latest
     - kubectl apply -f k8s/deploy_api_curl --kubeconfig ./k8sconfig
     - sleep 10
