@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cs4783-spring2021-api-curl-deploy
+  labels:
+    app: cs4783-spring2021-api-curl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cs4783-spring2021-api-curl
+  template:
+    metadata:
+      labels:
+        app: cs4783-spring2021-api-curl
+    spec:
+      containers:
+      - name: cs4783-spring2021-api-con
+        image: annaarroyo/cs4783-spring2021-api-curl
+        ports:
+        - containerPort: 12036
+      imagePullSecrets:
+        - name: kvk745-dockerhub
