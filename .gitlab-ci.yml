@@ -17,12 +17,12 @@ curl-test-job:
   stage: test
   script:
     - echo "Running CURL tests..."
-    #- docker build -t api_image .
-    - docker system prune -f
-    - docker ps
-    #- docker run -p 2000:12036 -d api_image  
-    #- ping localhost:2000
-    #- curl -i localhost:2000
+    - docker build -t api_image .
+    - docker run -p 2000:12036 -d api_image  
+    - ping localhost:2000
+    - curl -i localhost:2000
+    - docker ps -qf status=running | xargs docker stop
+    - docker ps -qf status=exited | xargs docker rm
     #- chmod +x ./curltesting/testcurl.sh
     #- ./curltesting/testcurl.sh
 
