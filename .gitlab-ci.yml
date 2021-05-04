@@ -18,8 +18,8 @@ curl-test-job:
   script:
     - echo "Running CURL tests..."
     - docker build -t api_image .
-    - docker run -p 2000:12036 -d api_image  
     - docker ps
+    #- docker run -p 2000:12036 -d api_image  
     #- ping localhost:2000
     #- curl -i localhost:2000
     #- chmod +x ./curltesting/testcurl.sh
