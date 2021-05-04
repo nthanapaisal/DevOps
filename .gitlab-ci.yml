@@ -3,8 +3,9 @@ build-image:
   stage: build
   script:
     - echo "Building project..."
-    - echo $API_CONFIG > .env
-        - npm install
+    - cat $API_CONFIG > ./.env
+    - cat ./.env
+    - npm install
 
 unit-test-job:
   stage: test
@@ -19,16 +20,19 @@ curl-test-job:
     - echo "Running CURL tests..."
     - cat $K8S_CONFIG > ./k8sconfig
     - npm install
-    - kubectl get services --kubeconfig ./k8sconfig
-    #- docker build -t annaarroyo/cs4783-spring2021-api-curl:latest -f Dockerfile_api .
-    #- docker push annaarroyo/cs4783-spring2021-api-curl:latest
-    #- kubectl apply -f k8s/deploy_api --kubeconfig ./k8sconfig
-    #- sleep 5
-    #- kubectl create secret docker-registry kvk745-dockerhub --docker-server=docker.io --docker-username=annaarroyo --docker-password=$ANNA_DOCKERHUB_TOKEN --docker-email=annaearroyo@gmail.com --kubeconfig ./k8sconfig
-    #- kubectl apply -f k8s/service_api_lb_curl --kubeconfig ./k8sconfig
-    #- sleep 10
-    #- chmod +x ./curltesting/testcurl.sh
-    #- ./curltesting/testcurl.sh
+    #- kubectl get services --kubeconfig ./k8sconfig
+    - docker build -t annaarroyo/cs4783-spring2021-api-curl:latest -f Dockerfile_api .
+    - docker push annaarroyo/cs4783-spring2021-api-curl:latest
+    - kubectl apply -f k8s/deploy_api_curl --kubeconfig ./k8sconfig
+    - sleep 10
+    - kubectl apply -f k8s/service_api_lb_curl --kubeconfig ./k8sconfig
+    - sleep 5
+    - kubectl get service cs4783-spring2021-api-lb_curl -o=jsonpath='{.status.loadBalancer.ingress[0].ip}' --kubeconfig ./k8sconfig > ip.sh
+    - bash { echo -n 'export CURL_IP='; cat ip.sh; } > curlIP.sh
+    - chmod +x ./curlIP.sh
+    - ./curlIP.sh
+    - chmod +x ./curltesting/testcurl.sh
+    - ./curltesting/testcurl.sh
 
 deploy-job:
   stage: deploy
