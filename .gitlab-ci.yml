@@ -17,12 +17,10 @@ curl-test-job:
   script:
     - echo "Running CURL tests..."
     - npm install
-    - npm run dev
+    - docker-compose up
     - sleep 10
-    - netstat -na|grep 8087
-    #- chmod +x ./curltesting/testcurl.sh
-    #- ./curltesting/testcurl.sh
-    #- pm2 delete all
+    - chmod +x ./curltesting/testcurl.sh
+    - ./curltesting/testcurl.sh
 
 deploy-job:
   stage: deploy
