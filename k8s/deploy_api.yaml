@@ -4,7 +4,7 @@ metadata:
   name: cs4783-spring2021-api-deploy
   labels:
     app: cs4783-spring2021-api
-spec:kube
+spec:
   replicas: 1
   selector:
     matchLabels:
@@ -16,8 +16,8 @@ spec:kube
     spec:
       containers:
       - name: cs4783-spring2021-api-con
-        image: nthanapaisal/cs4783-spring2021-api
+        image: annaarroyo/cs4783-spring2021-api
         ports:
         - containerPort: 12036
       imagePullSecrets:
-        - name: iaf873-dockerhub
+        - name: kvk745-dockerhub

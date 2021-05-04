@@ -1,5 +1,5 @@
 ---
-build-job:
+build-image:
   stage: build
   script:
     - echo "Building project..."
@@ -17,22 +17,21 @@ curl-test-job:
   script:
     - echo "Running CURL tests..."
     - npm install
-    #- npm start start.sh
+    - npm run dev
     - sleep 10
-    - chmod +x ./curltesting/testcurl.sh
-    - ./curltesting/testcurl.sh
+    - netstat -na|grep 8087
+    #- chmod +x ./curltesting/testcurl.sh
+    #- ./curltesting/testcurl.sh
     #- pm2 delete all
 
 deploy-job:
   stage: deploy
   script:
-    - echo "Deploying to class server..."
-    - echo "At this point, ssh, pull, reload"
-    - echo "$private_key_nikki" > ./private_key
+    - echo "Deploying..."
     #- echo "$private_key_anna" > ./private_key
-    - chmod 400 ./private_key
-    - ssh -i ./private_key iaf873@10.100.201.3 "cd ~/cs4783DevOps; git pull; pm2 reload all"
+    #-chmod 400 ./private_key
+    #- ssh -i ./private_key iaf873@10.100.201.3 "cd ~/cs4783DevOps; git pull; pm2 reload all"
     #- ssh -i ./private_key kvk745@10.100.201.3 "cd ~/cs4783DevOps; git pull; pm2 reload all"
-    - rm ./private_key
+    #- rm ./private_key
     
 ...
