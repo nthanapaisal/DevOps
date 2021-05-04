@@ -3,21 +3,19 @@ build-image:
   stage: build
   script:
     - echo "Building project..."
-    - cat $API_CONFIG > ./.env
     - npm install
 
 unit-test-job:
   stage: test
   script:
     - echo "Running unit tests..."
-    #- npm install
-    #- npm test
+    - npm install
+    - npm test
 
 curl-test-job:
   stage: test
   script:
     - echo "Running CURL tests..."
-    #- docker images
     - docker ps -qf status=running | xargs docker stop
     - docker ps -qf status=exited | xargs docker rm
     - docker image rm api_image
@@ -26,23 +24,28 @@ curl-test-job:
     - docker run -p 2000:12036 -d api_image  
     - sleep 20
     - docker ps
-    #- ping localhost:2000
-    #- curl -i 127.0.0.1:2000
     - chmod +x ./curltesting/testcurl.sh
     - ./curltesting/testcurl.sh
-    #- curl --silent -X 'GET' \
-    #'https://127.0.0.1:2000/hello' \ 
-    #-H 'accept:application/json' --insecure
-
 
 deploy-job:
   stage: deploy
   script:
+    - cat $K8S_CONFIG > ./k8sconfig
+    - cat $API_CONFIG > ./.env
+    - npm install
     - echo "Deploying..."
-    #- echo "$private_key_anna" > ./private_key
-    #-chmod 400 ./private_key
-    #- ssh -i ./private_key iaf873@10.100.201.3 "cd ~/cs4783DevOps; git pull; pm2 reload all"
-    #- ssh -i ./private_key kvk745@10.100.201.3 "cd ~/cs4783DevOps; git pull; pm2 reload all"
-    #- rm ./private_key
+    - kubectl get services --kubeconfig ./k8sconfig
+    - docker build -t annaarroyo/cs4783-spring2021-api:latest -f Dockerfile_api .
+    - docker login --username=annaarroyo --password=$ANNA_DOCKERHUB_TOKEN
+    - docker push annaarroyo/cs4783-spring2021-api:latest
+    #Use kubectl to re-apply your deployment script
+    - kubectl apply --kubeconfig ./k8sconfig -f ./k8s/deploy_api.yaml
+    - sleep 30
+    - kubectl get deployment --kubeconfig ./k8sconfig
+    - kubectl rollout restart cs4783-spring2021-api-lb --kubeconfig ./<your deployment script> ./k8s/service_api_lb.yaml
+    - sleep 30
+    - kubectl get services --kubeconfig ./k8sconfig
+    - kubectl get pods --kubeconfig ./k8sconfig
+    
     
 ...
