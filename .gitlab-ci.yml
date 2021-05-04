@@ -42,7 +42,7 @@ deploy-job:
     - kubectl apply --kubeconfig ./k8sconfig -f ./k8s/deploy_api.yaml
     - sleep 30
     - kubectl get deployment --kubeconfig ./k8sconfig
-    - kubectl rollout restart cs4783-spring2021-api-lb --kubeconfig ./<your deployment script> ./k8s/service_api_lb.yaml
+    - kubectl rollout restart cs4783-spring2021-api-deploy --kubeconfig ./k8sconfig
     - sleep 30
     - kubectl get services --kubeconfig ./k8sconfig
     - kubectl get pods --kubeconfig ./k8sconfig
