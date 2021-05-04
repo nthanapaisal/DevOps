@@ -28,7 +28,8 @@ curl-test-job:
     - kubectl apply --kubeconfig ./k8sconfig -f ./k8s/service_api_lb_curl.yaml
     - sleep 5
     - kubectl get service cs4783-spring2021-api-lb_curl -o=jsonpath='{.status.loadBalancer.ingress[0].ip}' --kubeconfig ./k8sconfig > ip.sh
-    - {echo -n 'export CURL_IP='; cat ip.sh;} > curlIP.sh
+    - chmod +x ./setCurlIP.sh
+    - ./setCurlIP.sh
     - chmod +x ./curlIP.sh
     - ./curlIP.sh
     - chmod +x ./curltesting/testcurl.sh
