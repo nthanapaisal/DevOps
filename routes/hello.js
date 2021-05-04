@@ -16,7 +16,7 @@ router.get('/',
   async function(request, response) {
         logger.info("success");
 
-        utilities.sendResponse(response, 200, "Hello Anna!");
+        utilities.sendResponse(response, 200, "Hello yourself");
     }
 );
 
