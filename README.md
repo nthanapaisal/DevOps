@@ -1,3 +1,5 @@
+# This is a project for CS4783 course. 
+
 #### Configuration
 <p>
 server.js expects a .env file. create a file called ".env" that contains:
